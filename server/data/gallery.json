@@ -1,0 +1,154 @@
+{
+  "albums": [
+    {
+      "slug": "baby-spa",
+      "name": "Baby Spa",
+      "thumbnail": "/images/galeri/thumbnails/baby-spa.png",
+      "photos": [
+        {
+          "src": "/images/galeri/baby-spa/1001168571-7728-5152-2.jpg",
+          "alt": "Baby Spa"
+        },
+        {
+          "src": "/images/galeri/baby-spa/1001168578-5067-6334-2.png",
+          "alt": "Baby Spa"
+        },
+        {
+          "src": "/images/galeri/baby-spa/dsc02271.jpg",
+          "alt": "Baby Spa"
+        }
+      ]
+    },
+    {
+      "slug": "terapi-wicara",
+      "name": "Terapi Wicara",
+      "thumbnail": "/images/galeri/thumbnails/terapi-wicara.png",
+      "photos": [
+        {
+          "src": "/images/galeri/terapi-wicara/terapi-wicara-motherlight-8897-2.jpg",
+          "alt": "Terapi Wicara"
+        }
+      ]
+    },
+    {
+      "slug": "laboratorium",
+      "name": "Laboratorium",
+      "thumbnail": "/images/galeri/thumbnails/laboratorium.png",
+      "photos": [
+        {
+          "src": "/images/galeri/laboratorium/laboratorium-motherlight-9121-2.jpg",
+          "alt": "Laboratorium"
+        }
+      ]
+    },
+    {
+      "slug": "obgyn",
+      "name": "Obgyn",
+      "thumbnail": "/images/galeri/thumbnails/obgyn.png",
+      "photos": [
+        {
+          "src": "/images/galeri/obgyn/obgyn-motherlight-8952-2-2.jpg",
+          "alt": "Obgyn"
+        },
+        {
+          "src": "/images/galeri/obgyn/p1560875-3.png",
+          "alt": "Obgyn"
+        }
+      ]
+    },
+    {
+      "slug": "farmasi",
+      "name": "Farmasi",
+      "thumbnail": "/images/galeri/thumbnails/farmasi.png",
+      "photos": [
+        {
+          "src": "/images/galeri/farmasi/farmasi-motherlight-9150-2.jpg",
+          "alt": "Farmasi"
+        }
+      ]
+    },
+    {
+      "slug": "playground",
+      "name": "Playground",
+      "thumbnail": "/images/galeri/thumbnails/playground.png",
+      "photos": [
+        {
+          "src": "/images/galeri/playground/p1560888-2.jpg",
+          "alt": "Playground"
+        },
+        {
+          "src": "/images/galeri/playground/playground-motherlight-9029-2.jpg",
+          "alt": "Playground"
+        }
+      ]
+    },
+    {
+      "slug": "poli-konselor-menyusui",
+      "name": "Poli Konselor Menyusui",
+      "thumbnail": "/images/galeri/thumbnails/poli-konselor-menyusui.png",
+      "photos": [
+        {
+          "src": "/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9057-2.jpg",
+          "alt": "Poli Konselor Menyusui"
+        },
+        {
+          "src": "/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.jpg",
+          "alt": "Poli Konselor Menyusui"
+        }
+      ]
+    },
+    {
+      "slug": "poli-spesialis-anak",
+      "name": "Poli Spesialis Anak",
+      "thumbnail": "/images/galeri/thumbnails/poli-spesialis-anak.png",
+      "photos": [
+        {
+          "src": "/images/galeri/poli-spesialis-anak/1001177232-5152-6440-2.jpg",
+          "alt": "Poli Spesialis Anak"
+        },
+        {
+          "src": "/images/galeri/poli-spesialis-anak/1001177235-5152-6440-2.jpg",
+          "alt": "Poli Spesialis Anak"
+        },
+        {
+          "src": "/images/galeri/poli-spesialis-anak/1001177236-5152-6440-2.jpg",
+          "alt": "Poli Spesialis Anak"
+        },
+        {
+          "src": "/images/galeri/poli-spesialis-anak/poli-spesialis-anak-motherlight-8999-2.jpg",
+          "alt": "Poli Spesialis Anak"
+        }
+      ]
+    },
+    {
+      "slug": "poli-umum",
+      "name": "Poli Umum",
+      "thumbnail": "/images/galeri/thumbnails/poli-umum.png",
+      "photos": [
+        {
+          "src": "/images/galeri/poli-umum/igd-motherlight-9199-2.jpg",
+          "alt": "Poli Umum"
+        }
+      ]
+    },
+    {
+      "slug": "fasilitas-ranap",
+      "name": "Rawat inap",
+      "thumbnail": "/images/galeri/thumbnails/fasilitas-ranap.png",
+      "photos": [
+        {
+          "src": "/images/galeri/fasilitas-ranap/dsc02152-2.jpg",
+          "alt": "Rawat inap"
+        },
+        {
+          "src": "/images/galeri/fasilitas-ranap/dsc02285-2.jpg",
+          "alt": "Rawat inap"
+        },
+        {
+          "src": "/images/galeri/fasilitas-ranap/p1570020-2.jpg",
+          "alt": "Rawat inap"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+.cta-section {
+  position: relative;
+  background: var(--primary);
+  padding: 80px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-pattern {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 242px;
+  background-image: url('/images/pattern.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.cta-pattern-right {
+  right: 0;
+  background-position: left center;
+  transform: scaleX(-1);
+}
+
+.cta-pattern-left {
+  left: 0;
+  background-position: left center;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.cta-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.cta-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn-primary {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid #fff;
+  font-weight: 600;
+}
+
+.cta-btn-primary:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.cta-btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.6);
+  font-weight: 600;
+}
+
+.cta-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+@media (max-width: 640px) {
+  .cta-pattern {
+    width: 140px;
+    background-image: url('/images/pattern-side.svg');
+    background-size: auto 100%;
+  }
+}

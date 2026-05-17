@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(find src:*)",
+      "Bash(lsof -ti:5173)",
+      "Bash(node:*)",
+      "Bash(ls *.d.ts)",
+      "Bash(find:*)",
+      "Bash(chmod +x *)",
+      "Bash(pbcopy)"
+    ]
+  }
+}
