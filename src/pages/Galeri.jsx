@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, Images } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 import CtaSection from '../components/CtaSection';
+import { getGallery } from '../lib/supabase';
 import './Galeri.css';
 
 function SectionReveal({ children, className = '', delay = 0 }) {
@@ -108,9 +109,7 @@ export default function Galeri() {
   const [lightboxIdx, setLightboxIdx] = useState(null);
 
   useEffect(() => {
-    fetch('/api/gallery')
-      .then(r => r.json())
-      .then(d => setAlbums(d.albums || []));
+    getGallery().then(d => setAlbums(d.albums || [])).catch(console.error);
   }, []);
 
   useEffect(() => {

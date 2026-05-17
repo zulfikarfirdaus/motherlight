@@ -3,6 +3,7 @@ import { Clock, Phone, Calendar } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 import { operatingHours } from '../data/doctors';
 import CtaSection from '../components/CtaSection';
+import { getDoctors } from '../lib/supabase';
 import './Jadwal.css';
 
 const tabs = [
@@ -69,7 +70,7 @@ export default function Jadwal() {
   const [activeTab, setActiveTab] = useState('obgyn');
 
   useEffect(() => {
-    fetch('/api/doctors').then(r => r.json()).then(setDoctors);
+    getDoctors().then(setDoctors).catch(console.error);
   }, []);
 
   return (
