@@ -24,7 +24,8 @@ test('Supabase schema setup in Safari', async ({ page }) => {
   console.log('\n🔶 STEP: Opening Supabase SQL Editor in Safari...\n');
 
   await page.goto(SQL_EDITOR_URL);
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForTimeout(3000);
 
   // Handle login if needed
   const needsLogin = await page.locator('input[type="email"]').isVisible().catch(() => false);
