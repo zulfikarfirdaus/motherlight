@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Images, CalendarDays, LogOut } from 'lucide-react';
-import { clearToken, getToken } from '../hooks/useAdmin';
+import { getCurrentUser, signOut } from '../lib/supabase';
 import './Admin.css';
 
 export default function AdminLayout() {
@@ -9,17 +9,14 @@ export default function AdminLayout() {
   const [verified, setVerified] = useState(false);
 
   useEffect(() => {
-    if (!getToken()) { navigate('/admin/login'); return; }
-    fetch('/api/auth/verify', {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    }).then(r => {
-      if (!r.ok) { clearToken(); navigate('/admin/login'); }
+    getCurrentUser().then(user => {
+      if (!user) navigate('/admin/login');
       else setVerified(true);
-    }).catch(() => { clearToken(); navigate('/admin/login'); });
+    }).catch(() => navigate('/admin/login'));
   }, [navigate]);
 
-  function logout() {
-    clearToken();
+  async function logout() {
+    await signOut().catch(() => {});
     navigate('/admin/login');
   }
 

@@ -44,7 +44,7 @@ export const services = [
     id: 'rawat-inap',
     name: 'Fasilitas Rawat Inap',
     description: 'Kamar rawat inap pribadi bernuansa rumah, nyaman dan hangat, dilengkapi rawat gabung 24 jam untuk pemulihan optimal bunda dan si kecil.',
-    image: '/images/services/rawat-inap.png',
+    image: '/images/services/rawat-inap.jpeg',
     subServices: [
       'Kamar inap pribadi & nyaman',
       'Rawat gabung 24 jam ibu dan bayi',

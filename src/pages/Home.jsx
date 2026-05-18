@@ -60,7 +60,7 @@ const galleryPhotos = [
   { src: '/images/galeri/poli-spesialis-anak/poli-spesialis-anak-motherlight-8999-2.jpg',   alt: 'Poli Spesialis Anak' },
   { src: '/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.jpg', alt: 'Poli Konselor Menyusui' },
   { src: '/images/galeri/obgyn/p1560875-3.png',                                             alt: 'Poli Obgyn Motherlight' },
-  { src: '/images/galeri/fasilitas-ranap/dsc02152-2.jpg',                                   alt: 'Fasilitas Rawat Inap' },
+  { src: '/images/galeri/thumbnails/fasilitas-ranap.jpeg',                                   alt: 'Fasilitas Rawat Inap' },
 ];
 
 export default function Home() {
@@ -179,8 +179,7 @@ export default function Home() {
           <SectionReveal className="text-center">
             <span className="section-label">LAYANAN KAMI</span>
             <h2 className="specialties-heading">
-              Dari pemeriksaan pertama hingga masa nifas,<br />
-              kami menemani setiap langkah.
+              Dari pemeriksaan pertama hingga masa nifas,<br className="br-desktop" />{' '}kami menemani setiap langkah.
             </h2>
           </SectionReveal>
           <div className="specialties-grid">

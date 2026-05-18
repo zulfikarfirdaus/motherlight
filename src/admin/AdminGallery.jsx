@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Plus, Trash2, Upload, Images, X, Pencil, Check } from 'lucide-react';
-import { apiFetch } from '../hooks/useAdmin';
+import {
+  getGallery,
+  createAlbum,
+  renameAlbum,
+  deleteAlbum,
+  uploadAlbumThumbnail,
+  uploadAlbumPhotos,
+  deleteAlbumPhoto,
+} from '../lib/supabase';
 
 function Toast({ msg, type, onDone }) {
   useEffect(() => {
@@ -29,9 +37,9 @@ export default function AdminGallery() {
 
   // ── Load albums ───────────────────────────────────────────────
   useEffect(() => {
-    fetch('/api/gallery')
-      .then(r => r.json())
-      .then(d => { setAlbums(d.albums); setLoading(false); });
+    getGallery()
+      .then(d => { setAlbums(d.albums || []); setLoading(false); })
+      .catch(() => { notify('Gagal memuat album', 'error'); setLoading(false); });
   }, []);
 
   // Keep activeAlbum in sync when albums update
@@ -43,19 +51,18 @@ export default function AdminGallery() {
   }, [albums]); // eslint-disable-line
 
   // ── Album CRUD ────────────────────────────────────────────────
-  async function createAlbum(e) {
+  async function handleCreateAlbum(e) {
     e.preventDefault();
     if (!newName.trim()) return;
-    const res  = await apiFetch('/api/gallery/albums', {
-      method: 'POST',
-      body: JSON.stringify({ name: newName.trim() }),
-    });
-    const data = await res.json();
-    if (!res.ok) { notify(data.error, 'error'); return; }
-    setAlbums(prev => [...prev, data]);
-    setNewName('');
-    setShowNew(false);
-    notify('Album berhasil dibuat');
+    try {
+      const data = await createAlbum(newName.trim());
+      setAlbums(prev => [...prev, { ...data, photos: [] }]);
+      setNewName('');
+      setShowNew(false);
+      notify('Album berhasil dibuat');
+    } catch (err) {
+      notify(err.message || 'Gagal membuat album', 'error');
+    }
   }
 
   function startEdit(album, e) {
@@ -69,87 +76,90 @@ export default function AdminGallery() {
     const name = editName.trim();
     if (!name) { setEditingSlug(null); return; }
     try {
-      const res = await apiFetch(`/api/gallery/albums/${slug}/rename`, {
-        method: 'POST',
-        body: JSON.stringify({ name }),
-      });
-      let data;
-      try { data = await res.json(); }
-      catch { notify(`Server error (${res.status}) — coba restart server`, 'error'); return; }
-      if (!res.ok) { notify(data.error || 'Gagal mengubah nama', 'error'); return; }
-      setAlbums(prev => prev.map(a => a.slug === slug ? data : a));
-      if (activeAlbum?.slug === slug) setActiveAlbum(data);
+      await renameAlbum(slug, name);
+      setAlbums(prev => prev.map(a => a.slug === slug ? { ...a, name } : a));
+      if (activeAlbum?.slug === slug) setActiveAlbum(prev => ({ ...prev, name }));
       setEditingSlug(null);
       notify('Nama album diperbarui');
-    } catch {
-      notify('Tidak dapat terhubung ke server', 'error');
+    } catch (err) {
+      notify(err.message || 'Gagal mengubah nama', 'error');
     }
   }
 
-  async function deleteAlbum(album) {
+  async function handleDeleteAlbum(album) {
     if (!window.confirm(`Hapus album "${album.name}" beserta semua fotonya?`)) return;
-    const res = await apiFetch(`/api/gallery/albums/${album.slug}`, { method: 'DELETE' });
-    if (!res.ok) { notify('Gagal menghapus album', 'error'); return; }
-    setAlbums(prev => prev.filter(a => a.slug !== album.slug));
-    if (activeAlbum?.slug === album.slug) setActiveAlbum(null);
-    notify('Album dihapus');
+    try {
+      await deleteAlbum(album.slug);
+      setAlbums(prev => prev.filter(a => a.slug !== album.slug));
+      if (activeAlbum?.slug === album.slug) setActiveAlbum(null);
+      notify('Album dihapus');
+    } catch (err) {
+      notify(err.message || 'Gagal menghapus album', 'error');
+    }
   }
 
   // ── Thumbnail upload ──────────────────────────────────────────
-  async function uploadThumbnail(file) {
+  async function handleUploadThumbnail(file) {
     if (!file) return;
-    const form = new FormData();
-    form.append('file', file);
     setUploading(true);
-    const res  = await apiFetch(`/api/gallery/albums/${activeAlbum.slug}/thumbnail`, {
-      method: 'POST', body: form,
-    });
-    const data = await res.json();
-    setUploading(false);
-    if (!res.ok) { notify('Gagal upload cover', 'error'); return; }
-    setAlbums(prev => prev.map(a =>
-      a.slug === activeAlbum.slug ? { ...a, thumbnail: data.thumbnail } : a
-    ));
-    notify('Cover diperbarui');
+    try {
+      const data = await uploadAlbumThumbnail(activeAlbum.slug, file);
+      setUploading(false);
+      // Append cache-buster so the browser shows the new image immediately
+      const thumbnail = `${data.thumbnail}?t=${Date.now()}`;
+      setAlbums(prev => prev.map(a =>
+        a.slug === activeAlbum.slug ? { ...a, thumbnail } : a
+      ));
+      notify('Cover diperbarui');
+    } catch (err) {
+      setUploading(false);
+      notify(err.message || 'Gagal upload cover', 'error');
+    }
   }
 
   // ── Photo upload ──────────────────────────────────────────────
-  async function uploadPhotos(files) {
+  async function handleUploadPhotos(files) {
     if (!files?.length) return;
-    const form = new FormData();
-    Array.from(files).forEach(f => form.append('files', f));
     setUploading(true);
-    const res  = await apiFetch(`/api/gallery/albums/${activeAlbum.slug}/photos`, {
-      method: 'POST', body: form,
-    });
-    const data = await res.json();
-    setUploading(false);
-    if (!res.ok) { notify('Gagal upload foto', 'error'); return; }
-    setAlbums(prev => prev.map(a =>
-      a.slug === activeAlbum.slug ? { ...a, photos: data.photos, thumbnail: a.thumbnail || data.photos[0]?.src || null } : a
-    ));
-    notify(`${data.added} foto ditambahkan`);
+    try {
+      const data = await uploadAlbumPhotos(activeAlbum.slug, Array.from(files));
+      setUploading(false);
+      setAlbums(prev => prev.map(a => {
+        if (a.slug !== activeAlbum.slug) return a;
+        const merged = [...a.photos, ...data.photos].sort((x, y) => x.position - y.position);
+        return {
+          ...a,
+          photos: merged,
+          thumbnail: a.thumbnail || data.photos[0]?.src || null,
+        };
+      }));
+      notify(`${data.added} foto ditambahkan`);
+    } catch (err) {
+      setUploading(false);
+      notify(err.message || 'Gagal upload foto', 'error');
+    }
   }
 
-  async function deletePhoto(filename) {
+  async function handleDeletePhoto(photoId) {
     if (!window.confirm('Hapus foto ini?')) return;
-    const res  = await apiFetch(
-      `/api/gallery/albums/${activeAlbum.slug}/photos/${filename}`,
-      { method: 'DELETE' }
-    );
-    const data = await res.json();
-    if (!res.ok) { notify('Gagal menghapus foto', 'error'); return; }
-    setAlbums(prev => prev.map(a =>
-      a.slug === activeAlbum.slug ? { ...a, photos: data.photos } : a
-    ));
-    notify('Foto dihapus');
+    try {
+      await deleteAlbumPhoto(activeAlbum.slug, photoId);
+      setAlbums(prev => prev.map(a =>
+        a.slug === activeAlbum.slug
+          ? { ...a, photos: a.photos.filter(p => p.id !== photoId) }
+          : a
+      ));
+      notify('Foto dihapus');
+    } catch (err) {
+      notify(err.message || 'Gagal menghapus foto', 'error');
+    }
   }
 
   function handleDrop(e) {
     e.preventDefault();
     setDragOver(false);
     const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
-    uploadPhotos(files);
+    handleUploadPhotos(files);
   }
 
   // ── Album list view ───────────────────────────────────────────
@@ -170,7 +180,7 @@ export default function AdminGallery() {
         </div>
 
         {showNew && (
-          <form className="new-album-form" onSubmit={createAlbum}>
+          <form className="new-album-form" onSubmit={handleCreateAlbum}>
             <input
               autoFocus
               placeholder="Nama album…"
@@ -240,7 +250,7 @@ export default function AdminGallery() {
                     <button className="btn-admin btn-admin-secondary" style={{ flex: 1, justifyContent: 'center', fontSize: 12, padding: '6px 10px' }} onClick={() => setActiveAlbum(album)}>
                       Kelola
                     </button>
-                    <button className="btn-admin btn-admin-danger" style={{ padding: '6px 10px' }} onClick={() => deleteAlbum(album)}>
+                    <button className="btn-admin btn-admin-danger" style={{ padding: '6px 10px' }} onClick={() => handleDeleteAlbum(album)}>
                       <Trash2 size={13} />
                     </button>
                   </div>
@@ -297,7 +307,7 @@ export default function AdminGallery() {
             </button>
           </div>
         )}
-        <button className="btn-admin btn-admin-danger" onClick={() => deleteAlbum(activeAlbum)}>
+        <button className="btn-admin btn-admin-danger" onClick={() => handleDeleteAlbum(activeAlbum)}>
           <Trash2 size={14} />
           Hapus Album
         </button>
@@ -322,7 +332,7 @@ export default function AdminGallery() {
               type="file"
               accept="image/*"
               style={{ display: 'none' }}
-              onChange={e => uploadThumbnail(e.target.files[0])}
+              onChange={e => handleUploadThumbnail(e.target.files[0])}
             />
             <button
               className="btn-admin btn-admin-secondary"
@@ -356,7 +366,7 @@ export default function AdminGallery() {
           accept="image/*"
           multiple
           style={{ display: 'none' }}
-          onChange={e => uploadPhotos(e.target.files)}
+          onChange={e => handleUploadPhotos(e.target.files)}
         />
 
         {uploading && (
@@ -389,21 +399,18 @@ export default function AdminGallery() {
             onDragLeave={() => setDragOver(false)}
             onDrop={handleDrop}
           >
-            {activeAlbum.photos.map(photo => {
-              const filename = photo.src.split('/').pop();
-              return (
-                <div key={photo.src} className="photo-admin">
-                  <img src={photo.src} alt={photo.alt} loading="lazy" />
-                  <button
-                    className="photo-admin-del"
-                    onClick={() => deletePhoto(filename)}
-                    title="Hapus foto"
-                  >
-                    <Trash2 size={12} />
-                  </button>
-                </div>
-              );
-            })}
+            {activeAlbum.photos.map(photo => (
+              <div key={photo.id || photo.src} className="photo-admin">
+                <img src={photo.src} alt={photo.alt} loading="lazy" />
+                <button
+                  className="photo-admin-del"
+                  onClick={() => handleDeletePhoto(photo.id)}
+                  title="Hapus foto"
+                >
+                  <Trash2 size={12} />
+                </button>
+              </div>
+            ))}
           </div>
         )}
       </div>

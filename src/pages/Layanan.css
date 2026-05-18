@@ -26,7 +26,7 @@
 .layanan-card { display: flex; flex-direction: column; overflow: hidden; }
 
 .layanan-img-wrap {
-  height: 220px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   position: relative;
 }

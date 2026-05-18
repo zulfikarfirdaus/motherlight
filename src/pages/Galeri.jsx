@@ -126,7 +126,7 @@ export default function Galeri() {
           <SectionReveal className="text-center">
             <h1 className="heading-xl">Galeri Motherlight</h1>
             <p className="galeri-hero-desc">
-              Selayang pandang fasilitas, ruangan, dan kegiatan di Motherlight Birth Center.
+              Selayang pandang fasilitas, ruangan, dan momen-momen hangat<br />dalam keseharian di Motherlight Birth Center.
             </p>
           </SectionReveal>
         </div>
