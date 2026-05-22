@@ -38,10 +38,33 @@ export async function getDoctors() {
   return grouped;
 }
 
-export async function updateDoctors(doctorsData) {
-  // This function is for admin panel
-  // We'll need to implement proper batch update logic
-  console.warn('updateDoctors not yet implemented with Supabase');
+export async function updateDoctors(groupedData) {
+  const { error: deleteError } = await supabase
+    .from('doctors')
+    .delete()
+    .not('id', 'is', null);
+
+  if (deleteError) throw deleteError;
+
+  const rows = [];
+  for (const [category, doctors] of Object.entries(groupedData)) {
+    for (const doc of (doctors || [])) {
+      rows.push({
+        name: doc.name,
+        specialty: doc.specialty,
+        category,
+        bio: doc.bio || '',
+        note: doc.note || '',
+        schedule: doc.schedule,
+      });
+    }
+  }
+
+  if (rows.length > 0) {
+    const { error: insertError } = await supabase.from('doctors').insert(rows);
+    if (insertError) throw insertError;
+  }
+
   return { ok: true };
 }
 

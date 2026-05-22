@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, Trash2, Check, X, PenLine } from 'lucide-react';
-import { apiFetch } from '../hooks/useAdmin';
+import { getDoctors, updateDoctors } from '../lib/supabase';
 
 const TABS = [
   { key: 'obgyn',   label: 'Spesialis Obgyn' },
@@ -134,18 +134,26 @@ export default function AdminDoctors() {
   const notify = (msg, type = 'success') => setToast({ msg, type });
 
   useEffect(() => {
-    fetch('/api/doctors').then(r => r.json()).then(setData);
+    getDoctors()
+      .then(setData)
+      .catch((err) => {
+        console.error('getDoctors error:', err);
+        notify('Gagal memuat data dokter', 'error');
+        setData({ obgyn: [], anak: [], lainnya: [], terapi: [] });
+      });
   }, []);
 
   async function saveAll(nextData) {
     setSaving(true);
-    const res = await apiFetch('/api/doctors', {
-      method: 'PUT',
-      body: JSON.stringify(nextData),
-    });
-    setSaving(false);
-    if (!res.ok) { notify('Gagal menyimpan', 'error'); return false; }
-    return true;
+    try {
+      await updateDoctors(nextData);
+      setSaving(false);
+      return true;
+    } catch (err) {
+      setSaving(false);
+      notify(err.message || 'Gagal menyimpan', 'error');
+      return false;
+    }
   }
 
   async function handleSaveDoctor(index, updatedDoctor) {
