@@ -21,21 +21,64 @@ export async function getDoctors() {
 
   if (error) throw error;
 
-  // Group by category (to match old API format)
-  const grouped = {
-    obgyn: [],
-    anak: [],
-    lainnya: [],
-    terapi: []
-  };
-
+  const grouped = {};
   data.forEach(doctor => {
-    if (grouped[doctor.category]) {
-      grouped[doctor.category].push(doctor);
-    }
+    if (!grouped[doctor.category]) grouped[doctor.category] = [];
+    grouped[doctor.category].push(doctor);
   });
 
   return grouped;
+}
+
+export async function getCategories() {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('position');
+  if (error) throw error;
+  return data;
+}
+
+export async function createCategory(label) {
+  const key = label.toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+
+  const { data: last } = await supabase
+    .from('categories')
+    .select('position')
+    .order('position', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const position = last ? last.position + 1 : 0;
+
+  const { data, error } = await supabase
+    .from('categories')
+    .insert({ key, label: label.trim(), position })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function renameCategory(key, label) {
+  const { data, error } = await supabase
+    .from('categories')
+    .update({ label: label.trim() })
+    .eq('key', key)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteCategory(key) {
+  await supabase.from('doctors').delete().eq('category', key);
+  const { error } = await supabase.from('categories').delete().eq('key', key);
+  if (error) throw error;
+  return { ok: true };
 }
 
 export async function updateDoctors(groupedData) {

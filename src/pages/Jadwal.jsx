@@ -3,15 +3,9 @@ import { Clock, Phone, Calendar } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 import { operatingHours } from '../data/doctors';
 import CtaSection from '../components/CtaSection';
-import { getDoctors } from '../lib/supabase';
+import { getDoctors, getCategories } from '../lib/supabase';
 import './Jadwal.css';
 
-const tabs = [
-  { key: 'obgyn', label: 'Spesialis Obgyn' },
-  { key: 'anak', label: 'Spesialis Anak' },
-  { key: 'lainnya', label: 'Umum & Lainnya' },
-  { key: 'terapi', label: 'Terapi & Rehabilitasi' },
-];
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -66,11 +60,18 @@ function DoctorCard({ doctor, index }) {
 }
 
 export default function Jadwal() {
-  const [doctors,   setDoctors]   = useState({});
-  const [activeTab, setActiveTab] = useState('obgyn');
+  const [doctors,    setDoctors]    = useState({});
+  const [categories, setCategories] = useState([]);
+  const [activeTab,  setActiveTab]  = useState(null);
 
   useEffect(() => {
-    getDoctors().then(setDoctors).catch(console.error);
+    Promise.all([getDoctors(), getCategories()])
+      .then(([docs, cats]) => {
+        setDoctors(docs);
+        setCategories(cats);
+        if (cats.length > 0) setActiveTab(cats[0].key);
+      })
+      .catch(console.error);
   }, []);
 
   return (
@@ -111,7 +112,7 @@ export default function Jadwal() {
       <section className="section jadwal-section">
         <div className="container">
           <div className="jadwal-tabs">
-            {tabs.map((tab) => (
+            {categories.map((tab) => (
               <button
                 key={tab.key}
                 className={`jadwal-tab${activeTab === tab.key ? ' active' : ''}`}
