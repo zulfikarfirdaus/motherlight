@@ -1,8 +1,15 @@
-import { AtSign, Award, Users, Heart, TrendingUp } from 'lucide-react';
+import { Hand } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
-import { stats } from '../data/testimonials';
-import CtaSection from '../components/CtaSection';
+import Stack from '../components/Stack';
 import './TentangKami.css';
+
+const visiPhotos = [
+  { src: '/images/galeri/playground/p1560888-2.jpg', alt: 'Playground Motherlight' },
+  { src: '/images/galeri/baby-spa/dsc02271.jpg', alt: 'Baby spa Motherlight' },
+  { src: '/images/galeri/fasilitas-ranap/dsc02285-2.jpg', alt: 'Fasilitas rawat inap Motherlight' },
+  { src: '/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.jpg', alt: 'Poli konselor menyusui Motherlight' },
+  { src: '/images/galeri/poli-spesialis-anak/1001177236-5152-6440-2.jpg', alt: 'Poli spesialis anak Motherlight' },
+];
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -13,13 +20,6 @@ function SectionReveal({ children, className = '', delay = 0 }) {
   );
 }
 
-const values = [
-  { icon: Heart, title: 'Pendekatan Hangat', desc: 'Kami memperlakukan setiap ibu seperti keluarga, dengan empati, sabar, dan penuh kasih.' },
-  { icon: Award, title: 'Berbasis Bukti', desc: 'Setiap layanan kami didasarkan pada riset dan protokol medis terkini yang teruji.' },
-  { icon: Users, title: 'Berpusat pada Ibu', desc: 'Pilihan dan suara ibu selalu menjadi pusat dalam setiap keputusan layanan.' },
-  { icon: TrendingUp, title: 'Pendampingan Menyeluruh', desc: 'Dari prahamil hingga pascasalin, kami ada di setiap langkah perjalanan Anda.' },
-];
-
 export default function TentangKami() {
   return (
     <div className="tentang-kami">
@@ -27,123 +27,88 @@ export default function TentangKami() {
       <section className="page-hero tentang-hero">
         <div className="container">
           <SectionReveal className="text-center">
-            <h1 className="heading-xl tentang-hero-title">
-              Dari Sebuah Kegelisahan,<br />Lahirlah Sebuah Cahaya
-            </h1>
+            <h1 className="heading-xl tentang-hero-title">Tentang Motherlight</h1>
             <p className="tentang-hero-desc">
-              Motherlight hadir sebagai jawaban atas kebutuhan ibu akan pendampingan persalinan yang manusiawi, hangat, dan berbasis bukti.
+              Birth center Islami yang mendampingi perjalanan setiap ibu, sejak kehamilan
+              hingga masa setelah melahirkan.
             </p>
           </SectionReveal>
         </div>
       </section>
 
-      {/* ── Story ─────────────────────────────────────────────── */}
-      <section className="section story-section">
-        <div className="container story-grid">
-          <SectionReveal className="story-text">
-            <span className="section-label">Kisah Kami</span>
-            <h2 className="heading-lg section-title">Mengapa Motherlight Lahir</h2>
-            <div className="divider" />
-            <p>
-              Lahir dari kegelisahan seorang dokter yang melihat terlalu banyak ibu yang merasa
-              takut, tidak dihormati, dan sendirian dalam proses persalinan mereka. dr. Bima
-              Suryantara mendirikan Motherlight Birth Center pada Februari 2026 dengan satu
-              visi: menjadikan persalinan sebagai pengalaman yang indah dan memberdayakan.
-            </p>
-            <p style={{ marginTop: 16 }}>
-              Di Motherlight, ibu bukan sekadar pasien. Ibu adalah protagonis dari kisah
-              kelahiran bayinya. Kami hadir sebagai pendamping, bukan pengambil alih, dalam
-              setiap tahap perjalanan kehamilan, persalinan, dan masa nifas.
-            </p>
-            <p style={{ marginTop: 16 }}>
-              Dengan pendekatan gentle birth, evidence-based practice, dan penghormatan penuh
-              pada hak alamiah ibu dan bayi, Motherlight menjadi rumah bagi ribuan ibu yang
-              ingin melahirkan dengan aman, nyaman, dan bermartabat.
-            </p>
+      {/* ── Intro / Story ─────────────────────────────────────── */}
+      <section className="intro-section">
+        <div className="container">
+          <div className="intro-grid">
+            <SectionReveal className="intro-left">
+              <span className="intro-quote-mark" aria-hidden="true">&ldquo;</span>
+              <h2 className="intro-headline">
+                Motherlight hadir untuk mendampingi perjalanan ibu dengan tenang, lembut,
+                dan penuh kasih.
+              </h2>
+              <img
+                className="intro-photo"
+                src="/images/galeri/hero-building.jpg"
+                alt="Gedung Motherlight Birth Center"
+                loading="lazy"
+              />
+            </SectionReveal>
+            <SectionReveal className="intro-card" delay={100}>
+              <p>
+                Kami percaya bahwa kelahiran bukan hanya proses medis, tetapi momen penuh
+                amanah yang layak dijalani dengan ilmu, adab, dan doa. Karena itu, Motherlight
+                menghadirkan birth center yang mendukung persalinan normal, menjaga kenyamanan
+                ibu, serta mendampingi keluarga sejak kehamilan hingga masa setelah melahirkan.
+              </p>
+              <p>
+                Dengan nilai-nilai Islam dan pelayanan profesional, kami ingin setiap ibu
+                merasa aman, didengar, dan dimuliakan dalam menyambut kehidupan baru.
+              </p>
+            </SectionReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Visi & Harapan ────────────────────────────────────── */}
+      <section className="section section-alt visi-section">
+        <div className="container visi-grid">
+          <SectionReveal className="visi-media">
+            <div className="visi-stack-wrap">
+              <span className="swipe-pill">
+                <Hand size={13} /> Swipe
+              </span>
+              <div className="visi-stack">
+                <Stack
+                  randomRotation
+                  sensitivity={160}
+                  sendToBackOnClick
+                  cards={visiPhotos.map((p, i) => (
+                    <img key={i} src={p.src} alt={p.alt} className="card-image" />
+                  ))}
+                />
+              </div>
+            </div>
           </SectionReveal>
 
-          <SectionReveal className="founder-card" delay={100}>
-            <div className="founder-inner">
-              <div className="founder-avatar">
-                <span>BS</span>
-              </div>
-              <div className="founder-info">
-                <h3 className="founder-name">dr. Bima Suryantara</h3>
-                <p className="founder-title">Sp. OG., Subsp. Obgynsos</p>
-                <p className="founder-credential">Founder & Dokter Spesialis Obgyn</p>
-                <ul className="founder-details">
-                  <li>Lulusan Universitas Gadjah Mada</li>
-                  <li>Mantan dokter RS JIH Solo & RS Hermina Solo</li>
-                  <li>19.000+ followers sebagai edukator kesehatan</li>
-                  <li>Anggota IDI & POGI</li>
-                  <li>Pengalaman 10+ tahun</li>
-                </ul>
-                <a
-                  href="https://www.instagram.com/motherlight.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="founder-ig"
-                >
-                  <AtSign size={16} />
-                  @motherlight.id
-                </a>
-              </div>
+          <SectionReveal className="visi-content" delay={100}>
+            <div className="visi-item">
+              <h3 className="visi-title">Visi Kami</h3>
+              <p className="visi-desc">
+                Menjadi birth center Islami yang dikenal karena ketenangan, kenyamanan,
+                dan pelayanan penuh kasih.
+              </p>
+            </div>
+
+            <div className="visi-item">
+              <h3 className="visi-title">Harapan Kami</h3>
+              <p className="visi-desc">
+                Agar setiap ibu dapat menjalani kehamilan dan persalinan dengan lebih
+                tenang, percaya diri, dan penuh rasa syukur.
+              </p>
             </div>
           </SectionReveal>
         </div>
       </section>
-
-      {/* ── Stats ─────────────────────────────────────────────── */}
-      <section className="section section-alt">
-        <div className="container">
-          <SectionReveal className="text-center">
-            <span className="section-label">Pencapaian Kami</span>
-            <h2 className="heading-lg section-title">Motherlight dalam Angka</h2>
-            <div className="divider divider-center" />
-          </SectionReveal>
-          <div className="tentang-stats-grid">
-            {[
-              { value: 'Feb 2026', label: 'Tahun Berdiri' },
-              { value: '10+', label: 'Tahun Pengalaman Dokter' },
-              ...stats,
-            ].map((s, i) => (
-              <SectionReveal key={s.label} delay={i * 80}>
-                <div className="tentang-stat-card">
-                  <span className="tentang-stat-value">{s.value}</span>
-                  <span className="tentang-stat-label">{s.label}</span>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Values ────────────────────────────────────────────── */}
-      <section className="section values-section">
-        <div className="container">
-          <SectionReveal className="text-center">
-            <span className="section-label">Nilai-Nilai Kami</span>
-            <h2 className="heading-lg section-title">Prinsip yang Memandu Kami</h2>
-            <div className="divider divider-center" />
-          </SectionReveal>
-          <div className="values-grid">
-            {values.map((v, i) => (
-              <SectionReveal key={v.title} delay={i * 80}>
-                <div className="value-card">
-                  <div className="value-icon">
-                    <v.icon size={28} />
-                  </div>
-                  <h3 className="value-title">{v.title}</h3>
-                  <p className="value-desc">{v.desc}</p>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ───────────────────────────────────────────────── */}
-      <CtaSection />
     </div>
   );
 }

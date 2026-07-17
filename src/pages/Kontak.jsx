@@ -95,7 +95,7 @@ export default function Kontak() {
 
               <div className="kontak-map-container">
                 <iframe
-                  src="https://maps.google.com/maps?q=Motherlight+Birth+Center+Karanganyar&output=embed&z=16"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.3726653097597!2d110.77260947500248!3d-7.534271092478973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a15003167ab8d%3A0xcc486c010b47c5d!2sMotherlight%20Birth%20Center!5e0!3m2!1sen!2sid!4v1781103572843!5m2!1sen!2sid"
                   title="Lokasi Motherlight Birth Center"
                   allowFullScreen
                   loading="lazy"

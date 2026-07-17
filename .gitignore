@@ -35,3 +35,5 @@ dist-ssr
 # Gallery sync
 .tmp-gallery/
 scripts/drive-session.json
+
+test-results/

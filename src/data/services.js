@@ -99,6 +99,144 @@ export const additionalServices = [
   'Layanan kesehatan Umroh & Haji',
 ];
 
+// Full services & facilities list shown on the Layanan page
+export const layananList = [
+  {
+    name: 'Poli Spesialis Obgin',
+    description:
+      'Layanan pemeriksaan dan konsultasi kesehatan wanita bersama dokter spesialis obgin, dengan pendekatan yang hangat, jelas, dan menghormati kebutuhan setiap pasien.',
+    items: [
+      'Pemeriksaan kehamilan',
+      'Pemeriksaan sistem reproduksi wanita',
+      'Pelayanan kontrasepsi',
+      'Program hamil',
+      'Skrining pranikah',
+    ],
+  },
+  {
+    name: 'Poli Spesialis Anak',
+    description:
+      'Motherlight mendampingi tumbuh kembang anak sejak awal kehidupan. Pemeriksaan dilakukan untuk membantu orang tua memahami kondisi kesehatan, nutrisi, dan perkembangan anak dengan lebih tenang.',
+    items: [
+      'Pemeriksaan anak',
+      'Pemeriksaan tumbuh kembang',
+      'Pemeriksaan status gizi anak',
+      'Konsultasi nutrisi dan MPASI',
+      'Penanganan masalah makan pada anak, seperti sulit makan, GTM, picky eater, serta kesulitan mengunyah atau menelan',
+      'Konsultasi alergi anak',
+      'Tes alergi anak',
+      'Skrining TB',
+    ],
+  },
+  {
+    name: 'Poli Konselor Menyusui',
+    description:
+      'Kami memahami bahwa perjalanan menyusui bisa membawa banyak pertanyaan dan tantangan. Melalui layanan konselor menyusui, ibu akan didampingi dengan sabar agar lebih percaya diri dalam memberikan ASI.',
+  },
+  {
+    name: 'Sunday Clinic',
+    description:
+      'Layanan klinik di hari Minggu untuk membantu keluarga yang membutuhkan waktu pemeriksaan lebih fleksibel.',
+  },
+  {
+    name: 'Telekonsultasi',
+    description:
+      'Untuk ibu dan keluarga yang membutuhkan konsultasi dari rumah, Motherlight menyediakan layanan telekonsultasi yang praktis, aman, dan tetap personal.',
+  },
+  {
+    name: 'Poli Umum',
+    description:
+      'Layanan kesehatan umum untuk kebutuhan harian keluarga, ditangani dengan sigap dan tetap mengutamakan kenyamanan pasien.',
+    items: [
+      'Pelayanan IGD',
+      'Injeksi vitamin',
+      'Wound care',
+      'Jahit luka',
+      'Lepas jahitan',
+      'Pembersihan sumbatan telinga',
+    ],
+  },
+  {
+    name: 'Farmasi',
+    description:
+      'Motherlight menyediakan layanan farmasi untuk mendukung kebutuhan obat dan perawatan pasien setelah pemeriksaan.',
+  },
+  {
+    name: 'Laboratorium',
+    description:
+      'Fasilitas laboratorium tersedia untuk membantu proses pemeriksaan, pemantauan kesehatan, dan penunjang diagnosis secara lebih menyeluruh.',
+  },
+  {
+    name: 'Pregnancy Pilates dan Senam Hamil',
+    description:
+      'Program gerak dan latihan untuk membantu ibu hamil mempersiapkan tubuh menjelang persalinan. Setiap sesi dirancang agar ibu merasa lebih kuat, rileks, dan percaya diri.',
+  },
+  {
+    name: 'Kelas Menjadi Ibu Berdaya',
+    description:
+      'Kelas edukatif untuk membantu ibu dan keluarga mempersiapkan fase kehamilan, persalinan, menyusui, dan pengasuhan awal dengan ilmu yang jelas dan menenangkan.',
+    itemsLabel: 'Kelas meliputi:',
+    items: [
+      'Kelas ibu hamil dan persiapan persalinan',
+      'Childbirth education',
+      'Kelas newborn',
+      'Kelas menyusui',
+      'Kelas MPASI',
+    ],
+  },
+  {
+    name: 'Post Partum Recovery Treatment',
+    description:
+      'Layanan pemulihan pasca melahirkan untuk ibu dan bayi, membantu proses pemulihan berlangsung lebih nyaman, lembut, dan terarah.',
+  },
+  {
+    name: 'Spa Ibu dan Bayi',
+    description:
+      'Layanan perawatan untuk ibu, bayi, dan anak yang dirancang untuk mendukung kenyamanan, relaksasi, bonding, dan kesehatan keluarga.',
+    items: [
+      'Pijat ibu hamil',
+      'Pijat perineum',
+      'Pijat oksitosin',
+      'Pijat pasca melahirkan',
+      'Pijat laktasi',
+      'Breast care',
+      'Baby and kids massage',
+      'Baby swim',
+      'Oral care',
+      'Potong kuku bayi',
+      'Potong rambut bayi',
+      'Pijat batuk pilek',
+      'Pijat nafsu makan',
+      'Pijat sembelit',
+      'Tindik bayi',
+      'Nebu',
+      'Infrared',
+      'Fisioterapi dada',
+    ],
+  },
+  {
+    name: 'Rehabilitasi Medik',
+    description:
+      'Layanan rehabilitasi untuk mendukung perkembangan anak dan pemulihan fungsi tubuh, dengan pendampingan yang terarah sesuai kebutuhan masing-masing pasien.',
+    items: [
+      'Terapi sensori integrasi',
+      'Terapi okupasi',
+      'Terapi wicara',
+      'Fisioterapi',
+    ],
+  },
+  {
+    name: 'Vaksinasi Anak dan Dewasa',
+    description:
+      'Motherlight menyediakan layanan vaksinasi untuk anak dan dewasa, sebagai bagian dari ikhtiar menjaga kesehatan keluarga secara berkelanjutan.',
+  },
+  {
+    name: 'Khitan Anak',
+    description:
+      'Layanan khitan anak dengan pendekatan yang aman, nyaman, dan ramah bagi anak serta keluarga.',
+  },
+];
+
 export const featuredCategories = [
   {
     title: 'Layanan Unggulan Obgyn',

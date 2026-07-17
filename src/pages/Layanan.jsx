@@ -1,6 +1,6 @@
-import { ArrowRight, CheckCircle, Phone } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
-import { services, additionalServices } from '../data/services';
+import { layananList } from '../data/services';
 import CtaSection from '../components/CtaSection';
 import './Layanan.css';
 
@@ -20,60 +20,44 @@ export default function Layanan() {
       <section className="page-hero layanan-hero">
         <div className="container">
           <SectionReveal className="text-center">
-            <h1 className="heading-xl">Layanan &amp; Fasilitas</h1>
+            <h1 className="heading-xl">Layanan &amp; Fasilitas Motherlight</h1>
             <p className="layanan-hero-desc">
-              Kami menyediakan layanan kesehatan ibu dan anak yang komprehensif, dari kehamilan, persalinan, hingga tumbuh kembang si kecil, dalam satu atap.
+              Ruang pelayanan terpadu untuk ibu, bayi, anak, dan keluarga.
+              Kami mendampingi setiap tahap dengan pendekatan yang tenang,
+              profesional, dan penuh kasih.
             </p>
           </SectionReveal>
         </div>
       </section>
 
-      {/* ── Main Services ─────────────────────────────────────── */}
-      <section className="section layanan-grid-section">
+      {/* ── Services list ─────────────────────────────────────── */}
+      <section className="section layanan-list-section">
         <div className="container">
-          <div className="layanan-grid">
-            {services.map((svc, i) => (
-              <SectionReveal key={svc.id} delay={i * 80}>
-                <div className="layanan-card card">
-                  <div className="layanan-img-wrap">
-                    <img src={svc.image} alt={svc.name} />
-                    <div className="layanan-img-overlay" />
-                  </div>
-                  <div className="layanan-body">
-                    <h3 className="layanan-name">{svc.name}</h3>
-                    <p className="layanan-desc">{svc.description}</p>
-                    <ul className="layanan-sub">
-                      {svc.subServices.map((sub) => (
-                        <li key={sub}>
-                          <CheckCircle size={14} />
-                          {sub}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+          <div className="layanan-list">
+            {layananList.map((svc, i) => (
+              <SectionReveal key={svc.name} delay={(i % 3) * 80}>
+                <article className="layanan-item">
+                  <h3 className="layanan-item-name">{svc.name}</h3>
+                  <p className="layanan-item-desc">{svc.description}</p>
+                  {svc.items && (
+                    <div className="layanan-item-meta">
+                      <span className="layanan-item-label">
+                        {svc.itemsLabel || 'Layanan meliputi:'}
+                      </span>
+                      <ul className="layanan-item-sub">
+                        {svc.items.map((item) => (
+                          <li key={item}>
+                            <CheckCircle size={14} />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </article>
               </SectionReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Additional Services ───────────────────────────────── */}
-      <section className="section section-alt additional-section">
-        <div className="container">
-          <SectionReveal className="text-center">
-            <h2 className="heading-lg section-title">Layanan Lainnya</h2>
-          </SectionReveal>
-          <SectionReveal>
-            <div className="additional-grid">
-              {additionalServices.map((svc) => (
-                <div key={svc} className="additional-item">
-                  <ArrowRight size={16} />
-                  {svc}
-                </div>
-              ))}
-            </div>
-          </SectionReveal>
         </div>
       </section>
 

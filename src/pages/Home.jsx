@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect, useCallback } from 'react';
+import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
-import { Phone, Calendar, ArrowRight, Star, MapPin, CheckCircle, Leaf, Heart, Droplets, X, Mail, MessageCircle } from 'lucide-react';
+import { Phone, Calendar, ArrowRight, Star, MapPin, CheckCircle, Leaf, Heart, Droplets, X, Mail, MessageCircle, Flower2, Feather, HeartHandshake, Baby, Stethoscope } from 'lucide-react';
 import CtaSection from '../components/CtaSection';
 import useReveal from '../hooks/useReveal';
 import { services, featuredCategories, alurLayanan } from '../data/services';
@@ -10,39 +11,131 @@ import './Home.css';
 
 const iconMap = { Leaf, Heart, Droplets };
 
+// Warm-tone underlayers that sweep in before the white panel
+const FEAT_LAYER_COLORS = ['#e7d2c8', '#d25135'];
+
 function FeaturedModal({ cat, onClose }) {
+  const backdropRef = useRef(null);
+  const sheetRef = useRef(null);
+  const panelRef = useRef(null);
+  const tlRef = useRef(null);
+  const closingRef = useRef(false);
+
+  // 'x' = right sheet (desktop), 'y' = bottom sheet (mobile)
+  const getAxis = () =>
+    window.matchMedia('(min-width: 768px)').matches ? 'xPercent' : 'yPercent';
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const sheet = sheetRef.current;
+      const panel = panelRef.current;
+      if (!sheet || !panel) return;
+
+      const layers = gsap.utils.toArray('.feat-prelayer', sheet);
+      const items = gsap.utils.toArray('.feat-modal-item', panel);
+      const header = panel.querySelector('.feat-modal-header');
+      const axis = getAxis();
+
+      gsap.set(backdropRef.current, { opacity: 0 });
+      gsap.set([...layers, panel], { [axis]: 100 });
+      gsap.set(items, { y: 30, opacity: 0 });
+      if (header) gsap.set(header, { opacity: 0, y: -10 });
+
+      const tl = gsap.timeline();
+      tl.to(backdropRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0);
+      layers.forEach((el, i) => {
+        tl.to(el, { [axis]: 0, duration: 0.5, ease: 'power4.out' }, i * 0.08);
+      });
+      const panelStart = layers.length * 0.08;
+      tl.to(panel, { [axis]: 0, duration: 0.6, ease: 'power4.out' }, panelStart);
+      tl.to(header, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, panelStart + 0.18);
+      tl.to(
+        items,
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power4.out', stagger: 0.08 },
+        panelStart + 0.24
+      );
+      tlRef.current = tl;
+    });
+    return () => ctx.revert();
+  }, [cat]);
+
+  const handleClose = useCallback(() => {
+    if (closingRef.current) return;
+    closingRef.current = true;
+    tlRef.current?.kill();
+    const sheet = sheetRef.current;
+    const panel = panelRef.current;
+    const layers = sheet ? gsap.utils.toArray('.feat-prelayer', sheet) : [];
+    const axis = getAxis();
+    gsap.to([...layers, panel], { [axis]: 100, duration: 0.32, ease: 'power3.in' });
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.32,
+      ease: 'power2.in',
+      onComplete: onClose,
+    });
+  }, [onClose]);
+
   return (
-    <div className="feat-modal-backdrop" onClick={onClose}>
-      <div className="feat-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="feat-modal-handle" aria-hidden="true" />
-        <div className="feat-modal-header">
-          <h3 className="feat-modal-title">{cat.title}</h3>
-          <button className="feat-modal-close" onClick={onClose} aria-label="Tutup">
-            <X size={20} />
-          </button>
-        </div>
-        <div className="feat-modal-body">
-          {cat.items.map((item) => (
-            <div key={item.name} className="feat-modal-item">
-              <h4 className="feat-modal-item-name">{item.name}</h4>
-              <ul className="feat-modal-sub">
-                {item.sub.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
-            </div>
+    <div className="feat-modal-backdrop" ref={backdropRef} onClick={handleClose}>
+      <div className="feat-sheet" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
+        <div className="feat-prelayers" aria-hidden="true">
+          {FEAT_LAYER_COLORS.map((c) => (
+            <div key={c} className="feat-prelayer" style={{ background: c }} />
           ))}
+        </div>
+        <div className="feat-modal" ref={panelRef}>
+          <div className="feat-modal-handle" aria-hidden="true" />
+          <div className="feat-modal-header">
+            <h3 className="feat-modal-title">{cat.title}</h3>
+            <button className="feat-modal-close" onClick={handleClose} aria-label="Tutup">
+              <X size={20} />
+            </button>
+          </div>
+          <div className="feat-modal-body">
+            {cat.items.map((item) => (
+              <div key={item.name} className="feat-modal-item">
+                <h4 className="feat-modal-item-name">{item.name}</h4>
+                <ul className="feat-modal-sub">
+                  {item.sub.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-const whyItems = [
-  { icon: '/images/icons/edukasi.svg',      title: 'Edukasi Prahamil hingga Pasca Lahir', sub: 'Kelas rutin setiap pekan' },
-  { icon: '/images/icons/rawat-gabung.svg', title: 'Rawat Gabung 24 Jam',                 sub: 'Ibu dan bayi tidak dipisahkan' },
-  { icon: '/images/icons/fasilitas.svg',    title: 'Fasilitas Lengkap',                   sub: 'Dari ruang bersalin hingga farmasi' },
-  { icon: '/images/icons/tenaga-medis.svg', title: 'Tenaga Medis Berkualitas',            sub: 'Berpengalaman dan tersertifikasi' },
+const keunggulanItems = [
+  {
+    Icon: Flower2,
+    title: 'Pro Persalinan Normal',
+    desc: 'Mendukung persalinan normal minim intervensi dengan pemantauan medis yang aman.',
+  },
+  {
+    Icon: Feather,
+    title: 'Gentle & Comfort Birth',
+    desc: 'Ruang bersalin privat, nyaman, dan bernuansa rumah agar ibu merasa lebih tenang.',
+  },
+  {
+    Icon: HeartHandshake,
+    title: 'Pendampingan Personal',
+    desc: 'Ibu didampingi sejak kehamilan, persalinan, nifas, hingga menyusui.',
+  },
+  {
+    Icon: Baby,
+    title: 'Pro ASI & IMD',
+    desc: 'Mendukung Inisiasi Menyusu Dini, konseling laktasi, dan keberhasilan menyusui.',
+  },
+  {
+    Icon: Stethoscope,
+    title: 'Perawatan Ibu, Bayi & Anak Terpadu',
+    desc: 'Layanan berkelanjutan untuk kesehatan ibu, bayi, dan tumbuh kembang anak.',
+  },
 ];
 
 function SectionReveal({ children, className = '', delay = 0 }) {
@@ -112,60 +205,70 @@ export default function Home() {
 {/* ── Philosophy + Featured (one section) ─────────────── */}
       <section className="section philosophy-featured-section">
         <div className="container">
-          <SectionReveal className="philosophy-inner">
-            <span className="section-label">Filosofi Kami</span>
+          <SectionReveal className="philosophy-head">
+            <span className="philosophy-label">Visi &amp; Pendekatan Kami</span>
             <h2 className="philosophy-title">
-              Kami percaya setiap ibu menyimpan kekuatan yang luar biasa
+              Motherlight hadir sebagai birth center Islami yang mendukung persalinan
+              normal dengan suasana tenang, nyaman, dan penuh kasih.
             </h2>
-            <p className="philosophy-desc">
-              Tugas kami bukan mengambil alih prosesnya, melainkan hadir, mendampingi, dan
-              memastikan Anda merasa aman di setiap langkahnya.
-            </p>
           </SectionReveal>
 
-          <div className="featured-grid">
-            {featuredCategories.map((cat, i) => {
-              const Icon = iconMap[cat.icon];
-              return (
-                <SectionReveal key={cat.title} delay={i * 100}>
-                  <div className="featured-card">
-                    <div className="featured-icon-wrap">
-                      {Icon && <Icon size={22} />}
-                    </div>
-                    <h3 className="featured-cat-title">{cat.title}</h3>
-                    <p className="featured-cat-desc">{cat.desc}</p>
-                    <button className="featured-detail-link" onClick={() => setModalCat(cat)}>
-                      Lihat Detail
+          <div className="philosophy-cols">
+            <SectionReveal className="philosophy-desc-col">
+              <p className="philosophy-desc">
+                Kami memadukan pendampingan personal, profesionalisme medis, dan
+                nilai-nilai Islam agar setiap ibu merasa aman, didengar, dimuliakan,
+                serta didampingi secara lahir dan batin dalam menyambut amanah
+                kehidupan baru.
+              </p>
+            </SectionReveal>
+
+            <div className="philosophy-list">
+              {featuredCategories.map((cat, i) => {
+                const Icon = iconMap[cat.icon];
+                return (
+                  <SectionReveal key={cat.title} delay={i * 80}>
+                    <button className="philosophy-row" onClick={() => setModalCat(cat)}>
+                      <span className="philosophy-row-main">
+                        {Icon && <Icon size={20} className="philosophy-row-icon" />}
+                        <span className="philosophy-row-title">{cat.title}</span>
+                      </span>
+                      <ArrowRight size={18} className="philosophy-row-arrow" />
                     </button>
-                  </div>
-                </SectionReveal>
-              );
-            })}
+                  </SectionReveal>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       {modalCat && <FeaturedModal cat={modalCat} onClose={() => setModalCat(null)} />}
 
-      {/* ── Why Motherlight ──────────────────────────────────── */}
-      <section className="why-section">
-        <div className="container why-inner">
-          <SectionReveal className="why-left">
-            <span className="why-label">MENGAPA MOTHERLIGHT</span>
-            <h2 className="why-heading">Lebih dari sekadar tempat bersalin.</h2>
-            <p className="why-body">Motherlight adalah ruang kepercayaan. Setiap detail kami rancang<br />untuk memastikan Bunda merasa dilihat, didengar, dan didampingi.</p>
-          </SectionReveal>
-          <div className="why-right">
-            {whyItems.map(({ icon, title, sub }, i) => (
+      {/* ── Keunggulan Motherlight ───────────────────────────── */}
+      <section className="keunggulan-section">
+        <div className="container">
+          <div className="keunggulan-head">
+            <SectionReveal>
+              <h2 className="keunggulan-heading">Keunggulan<br />Motherlight</h2>
+            </SectionReveal>
+            <SectionReveal delay={100}>
+              <p className="keunggulan-intro">
+                Di Motherlight, setiap perjalanan ibu dirawat dengan ilmu, adab,
+                dan kasih. Kami hadir untuk mendampingi proses kehamilan,
+                persalinan, menyusui, hingga tumbuh kembang anak dengan suasana
+                yang tenang, aman, dan penuh kelembutan.
+              </p>
+            </SectionReveal>
+          </div>
+
+          <div className="keunggulan-grid">
+            {keunggulanItems.map(({ Icon, title, desc }, i) => (
               <SectionReveal key={title} delay={i * 80}>
-                <div className="why-item">
-                  <div className="why-item-icon">
-                    <img src={icon} alt={title} className="why-item-svg" />
-                  </div>
-                  <div>
-                    <h3 className="why-item-title">{title}</h3>
-                    <p className="why-item-sub">{sub}</p>
-                  </div>
+                <div className="keunggulan-item">
+                  <Icon size={28} strokeWidth={1.6} className="keunggulan-icon" aria-hidden="true" />
+                  <h3 className="keunggulan-title">{title}</h3>
+                  <p className="keunggulan-desc">{desc}</p>
                 </div>
               </SectionReveal>
             ))}
