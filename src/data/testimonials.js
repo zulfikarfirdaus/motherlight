@@ -1,18 +1,19 @@
+// TODO: Replace lorem ipsum placeholders with official testimonials.
 export const testimonials = [
   {
-    name: 'Nadia S.',
-    role: 'Ibu dari Rayyan',
-    quote: 'Saya datang dengan segudang rasa takut. Tapi dr. Bima dan seluruh tim bidan benar-benar membuat saya merasa aman. Alhamdulillah, saya berhasil melahirkan normal.',
+    name: 'Lorem Ipsum',
+    role: 'Ibu dari Dolor',
+    quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
   },
   {
-    name: 'Annisa',
-    role: 'Ibu dari Diandra',
-    quote: 'Pengalaman water birth di Motherlight luar biasa. Suami bisa mendampingi, suasananya damai, dan tim sangat suportif. Proses melahirkan jadi momen yang indah, bukan menakutkan.',
+    name: 'Dolor Sit',
+    role: 'Ibu dari Amet',
+    quote: 'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
   },
   {
-    name: 'Fatimah',
-    role: 'Ibu dari Azka',
-    quote: 'Kelas prenatal di sini bukan sekadar senam. Ada edukasi, ada komunitas, ada rasa saling mendukung. Saya merasa siap dan berdaya menghadapi persalinan.',
+    name: 'Consectetur',
+    role: 'Ibu dari Elit',
+    quote: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.',
   },
 ];
 

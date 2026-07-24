@@ -27,7 +27,7 @@ export default function Navbar() {
       <header className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="container navbar-inner">
           <Link to="/" className="navbar-logo">
-            <img src="/images/logo.png" alt="Motherlight Birth Center" />
+            <img src="/images/motherlight logo header.svg" alt="Motherlight Birth Center" />
           </Link>
 
           <nav className={`navbar-links${open ? ' open' : ''}`}>
