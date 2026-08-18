@@ -4,6 +4,8 @@ import useReveal from '../hooks/useReveal';
 import CtaSection from '../components/CtaSection';
 import { getGallery } from '../lib/supabase';
 import './Galeri.css';
+import Seo from '../components/Seo';
+import { optimizedImage } from '../lib/imageUrl';
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -19,7 +21,7 @@ function AlbumCard({ album, index, onClick }) {
     <SectionReveal delay={index * 60}>
       <button className="album-card" onClick={() => onClick(album)} aria-label={`Buka album ${album.name}`}>
         {album.thumbnail
-          ? <img className="album-thumb" src={album.thumbnail} alt={album.name} />
+          ? <img className="album-thumb" src={optimizedImage(album.thumbnail, 600)} alt={`${album.name} - Motherlight Birth Center Karanganyar`} loading="lazy" decoding="async" />
           : (
             <div className="album-thumb-fallback">
               <Images size={36} strokeWidth={1.2} />
@@ -62,7 +64,7 @@ function AlbumDetail({ album, onBack, onPhotoClick }) {
                 onClick={() => onPhotoClick(i)}
                 aria-label={`Lihat foto: ${photo.alt}`}
               >
-                <img src={photo.src} alt={photo.alt} />
+                <img src={optimizedImage(photo.src, 700)} alt={photo.alt} loading="lazy" decoding="async" />
                 <div className="photo-overlay" />
               </button>
             </SectionReveal>
@@ -89,7 +91,7 @@ function Lightbox({ album, index, onClose, onPrev, onNext }) {
       )}
 
       <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
-        <img src={photo.src} alt={photo.alt} />
+        <img src={optimizedImage(photo.src, 1400, 80)} alt={photo.alt} />
         <p className="lightbox-caption">{photo.alt}</p>
         <span className="lightbox-counter">{index + 1} / {album.photos.length}</span>
       </div>
@@ -120,6 +122,11 @@ export default function Galeri() {
 
   return (
     <div className="galeri">
+      <Seo
+        title="Galeri Fasilitas Klinik Bersalin | Motherlight Karanganyar"
+        description="Foto fasilitas Motherlight Birth Center Karanganyar: ruang persalinan, kamar rawat inap, poli obgyn dan anak, baby spa, serta playground."
+        path="/galeri"
+      />
       {/* ── Page Hero ─────────────────────────────────────────── */}
       <section className="page-hero galeri-hero">
         <div className="container">

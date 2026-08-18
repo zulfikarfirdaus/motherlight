@@ -5,6 +5,7 @@ import { operatingHours } from '../data/doctors';
 import CtaSection from '../components/CtaSection';
 import { getDoctors, getCategories } from '../lib/supabase';
 import './Jadwal.css';
+import Seo from '../components/Seo';
 
 
 function SectionReveal({ children, className = '', delay = 0 }) {
@@ -76,6 +77,11 @@ export default function Jadwal() {
 
   return (
     <div className="jadwal">
+      <Seo
+        title="Jadwal Dokter Kandungan & Anak | Motherlight Karanganyar"
+        description="Jadwal praktik dokter spesialis kandungan dan anak di Motherlight Birth Center, Colomadu, Karanganyar. IGD dan persalinan buka 24 jam."
+        path="/jadwal"
+      />
       {/* ── Page Hero ─────────────────────────────────────────── */}
       <section className="page-hero jadwal-hero">
         <div className="container">

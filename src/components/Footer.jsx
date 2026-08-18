@@ -41,7 +41,7 @@ export default function Footer() {
       <div className="container footer-grid">
         {/* Brand */}
         <div className="footer-brand">
-          <img src="/images/logo.png" alt="Motherlight Birth Center" className="footer-logo" />
+          <img src="/images/logo.png" alt="Motherlight Birth Center Karanganyar" className="footer-logo" width="180" height="40" loading="lazy" decoding="async" />
           <p className="footer-tagline">
             Mendampingi setiap ibu dengan kehangatan, berbasis bukti, dan menghormati hak alamiah ibu dan bayi.
           </p>

@@ -3,7 +3,7 @@ export const services = [
     id: 'obgyn',
     name: 'Poli Spesialis Obgyn',
     description: 'Pemeriksaan kehamilan, kesehatan reproduksi wanita, program KB, program kesuburan, dan skrining kesehatan pranikah.',
-    image: '/images/services/obgyn.png',
+    image: '/images/services/obgyn.webp',
     subServices: [
       'Pemeriksaan kehamilan & USG 4D',
       'Skrining kesehatan reproduksi wanita',
@@ -17,7 +17,7 @@ export const services = [
     id: 'anak',
     name: 'Poli Spesialis Anak',
     description: 'Pemeriksaan tumbuh kembang, status gizi, konsultasi nutrisi, gangguan makan anak, konsultasi alergi, dan skrining TB.',
-    image: '/images/services/anak.png',
+    image: '/images/services/anak.webp',
     subServices: [
       'Pemeriksaan tumbuh kembang anak',
       'Penilaian status gizi & nutrisi',
@@ -31,7 +31,7 @@ export const services = [
     id: 'umum',
     name: 'Poli Umum',
     description: 'Pelayanan gawat darurat, injeksi vitamin, perawatan luka, pemasangan dan pelepasan jahitan, serta pembersihan telinga.',
-    image: '/images/services/umum.png',
+    image: '/images/services/umum.webp',
     subServices: [
       'Pelayanan gawat darurat',
       'Injeksi vitamin & suplemen',
@@ -44,7 +44,7 @@ export const services = [
     id: 'rawat-inap',
     name: 'Fasilitas Rawat Inap',
     description: 'Kamar rawat inap pribadi bernuansa rumah, nyaman dan hangat, dilengkapi rawat gabung 24 jam untuk pemulihan optimal bunda dan si kecil.',
-    image: '/images/services/rawat-inap.jpeg',
+    image: '/images/services/rawat-inap.webp',
     subServices: [
       'Kamar inap pribadi & nyaman',
       'Rawat gabung 24 jam ibu dan bayi',
@@ -58,7 +58,7 @@ export const services = [
     id: 'spa',
     name: 'Spa Ibu dan Bayi',
     description: 'Layanan spa komprehensif untuk ibu hamil, pasca melahirkan, dan bayi, membantu pemulihan dan tumbuh kembang optimal.',
-    image: '/images/services/spa.png',
+    image: '/images/services/spa.webp',
     subServices: [
       'Pijat prenatal & perineal massage',
       'Pijat oksitosin & laktasi',
@@ -74,7 +74,7 @@ export const services = [
     id: 'konselor',
     name: 'Poli Konselor Menyusui',
     description: 'Pendampingan laktasi oleh konselor bersertifikat untuk memastikan perjalanan menyusui yang sukses dan nyaman.',
-    image: '/images/services/konselor.png',
+    image: '/images/services/konselor.webp',
     subServices: [
       'Konsultasi masalah menyusui',
       'Evaluasi posisi & perlekatan',

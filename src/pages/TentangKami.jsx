@@ -1,15 +1,6 @@
-import { Hand } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
-import Stack from '../components/Stack';
 import './TentangKami.css';
-
-const visiPhotos = [
-  { src: '/images/galeri/playground/p1560888-2.jpg', alt: 'Playground Motherlight' },
-  { src: '/images/galeri/baby-spa/dsc02271.jpg', alt: 'Baby spa Motherlight' },
-  { src: '/images/galeri/fasilitas-ranap/dsc02285-2.jpg', alt: 'Fasilitas rawat inap Motherlight' },
-  { src: '/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.jpg', alt: 'Poli konselor menyusui Motherlight' },
-  { src: '/images/galeri/poli-spesialis-anak/1001177236-5152-6440-2.jpg', alt: 'Poli spesialis anak Motherlight' },
-];
+import Seo from '../components/Seo';
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -23,6 +14,11 @@ function SectionReveal({ children, className = '', delay = 0 }) {
 export default function TentangKami() {
   return (
     <div className="tentang-kami">
+      <Seo
+        title="Tentang Kami | Motherlight Birth Center Karanganyar"
+        description="Mengenal Motherlight Birth Center, klinik bersalin Islami di Colomadu, Karanganyar, dan dr. Bima Suryantara, Sp.OG., Subsp. Obginsos selaku pendiri."
+        path="/tentang-kami"
+      />
       {/* ── Page Hero ─────────────────────────────────────────── */}
       <section className="page-hero tentang-hero">
         <div className="container">
@@ -41,19 +37,12 @@ export default function TentangKami() {
         <div className="container">
           <div className="intro-grid">
             <SectionReveal className="intro-left">
-              <span className="intro-quote-mark" aria-hidden="true">&ldquo;</span>
               <h2 className="intro-headline">
-                Motherlight hadir untuk mendampingi perjalanan ibu dengan tenang, lembut,
-                dan penuh kasih.
+                Motherlight hadir untuk mendampingi perjalanan ibu
+                <em>dengan tenang, lembut, dan penuh kasih.</em>
               </h2>
-              <img
-                className="intro-photo"
-                src="/images/galeri/hero-building.jpg"
-                alt="Gedung Motherlight Birth Center"
-                loading="lazy"
-              />
             </SectionReveal>
-            <SectionReveal className="intro-card" delay={100}>
+            <SectionReveal className="intro-body" delay={100}>
               <p>
                 Kami percaya bahwa kelahiran bukan hanya proses medis, tetapi momen penuh
                 amanah yang layak dijalani dengan ilmu, adab, dan doa. Karena itu, Motherlight
@@ -70,42 +59,90 @@ export default function TentangKami() {
       </section>
 
       {/* ── Visi & Harapan ────────────────────────────────────── */}
-      <section className="section section-alt visi-section">
-        <div className="container visi-grid">
-          <SectionReveal className="visi-media">
-            <div className="visi-stack-wrap">
-              <span className="swipe-pill">
-                <Hand size={13} /> Swipe
-              </span>
-              <div className="visi-stack">
-                <Stack
-                  randomRotation
-                  sensitivity={160}
-                  sendToBackOnClick
-                  cards={visiPhotos.map((p, i) => (
-                    <img key={i} src={p.src} alt={p.alt} className="card-image" />
-                  ))}
-                />
-              </div>
-            </div>
+      <section className="visi-section">
+        <div className="container">
+          <SectionReveal className="visi-row">
+            <h2 className="visi-title">Visi Kami</h2>
+            <p className="visi-desc">
+              Menjadi birth center Islami yang dikenal karena ketenangan, kenyamanan,
+              dan pelayanan penuh kasih.
+            </p>
           </SectionReveal>
 
-          <SectionReveal className="visi-content" delay={100}>
-            <div className="visi-item">
-              <h3 className="visi-title">Visi Kami</h3>
-              <p className="visi-desc">
-                Menjadi birth center Islami yang dikenal karena ketenangan, kenyamanan,
-                dan pelayanan penuh kasih.
-              </p>
-            </div>
+          <SectionReveal className="visi-row" delay={100}>
+            <h2 className="visi-title">Harapan Kami</h2>
+            <p className="visi-desc">
+              Agar setiap ibu dapat menjalani kehamilan dan persalinan dengan lebih
+              tenang, percaya diri, dan penuh rasa syukur.
+            </p>
+          </SectionReveal>
+        </div>
+        <hr className="visi-rule" />
+      </section>
 
-            <div className="visi-item">
-              <h3 className="visi-title">Harapan Kami</h3>
-              <p className="visi-desc">
-                Agar setiap ibu dapat menjalani kehamilan dan persalinan dengan lebih
-                tenang, percaya diri, dan penuh rasa syukur.
-              </p>
-            </div>
+      {/* ── Pendiri ───────────────────────────────────────────── */}
+      <section className="section founder-section">
+        <div className="container founder-grid">
+          <aside className="founder-media">
+            <SectionReveal className="founder-sticky">
+              <figure className="founder-figure">
+                <img
+                  className="founder-photo"
+                  src="/images/tim/dr-bima.jpg"
+                  alt="dr. Bima Suryantara, Sp.OG., Subsp. Obginsos"
+                  loading="lazy"
+                />
+              </figure>
+            </SectionReveal>
+          </aside>
+
+          <SectionReveal className="founder-content" delay={100}>
+            <span className="section-label">Pendiri Motherlight</span>
+            <h2 className="heading-lg founder-title">
+              dr. Bima Suryantara, Sp.OG., Subsp. Obginsos
+            </h2>
+            <p>
+              dr. Bima Suryantara adalah Dokter Spesialis Obstetri dan Ginekologi,
+              Subspesialis Obstetri dan Ginekologi Sosial, sekaligus pendiri Motherlight.
+            </p>
+            <p>
+              Beliau menyelesaikan pendidikan Spesialis Obstetri dan Ginekologi di
+              Universitas Gadjah Mada pada tahun 2012, kemudian melanjutkan pendidikan
+              hingga menjadi konsultan pada tahun 2018.
+            </p>
+            <p>
+              Dalam kesehariannya, dr. Bima mendampingi para ibu dan keluarga melalui
+              praktik klinis dengan pendekatan yang tenang, personal, dan penuh perhatian.
+              Baginya, setiap ibu perlu merasa didengar, dipahami, dan dilibatkan dalam
+              setiap keputusan selama perjalanan kehamilan dan persalinan. Pendekatan ini
+              selaras dengan nilai Motherlight yang mengutamakan pendampingan personal,
+              komunikasi yang baik, serta penghormatan terhadap pilihan dan martabat
+              setiap ibu.
+            </p>
+            <p>
+              Selain menjalankan praktik klinis, dr. Bima juga aktif dalam dunia pendidikan.
+              Sejak tahun 2020, beliau mengajar di Program Magister Kebidanan STIKES Guna
+              Bangsa Yogyakarta, dengan bidang pengajaran yang mencakup kehamilan,
+              persalinan, masa nifas, kesehatan reproduksi, praktik klinis kebidanan, dan
+              penelitian.
+            </p>
+            <p>
+              Kecintaannya pada pendidikan juga diwujudkan melalui karya ilmiah dan
+              publikasi. Pada tahun 2025, dr. Bima menjadi salah satu penulis Buku Ajar
+              Asuhan Persalinan dan BBL, yang membahas berbagai aspek penting dalam
+              pendampingan ibu dan bayi, mulai dari proses persalinan dan perawatan bayi
+              baru lahir hingga masa postpartum dan komunikasi dalam pelayanan kesehatan.
+            </p>
+            <p>
+              Melalui Motherlight, dr. Bima membawa pengalaman klinis dan akademis tersebut
+              ke dalam sebuah ruang yang dirancang untuk menemani perjalanan ibu dengan
+              lebih utuh. Mulai dari mempersiapkan kehamilan dan persalinan, mendampingi
+              proses kelahiran, hingga masa nifas dan menyusui.
+            </p>
+            <p>
+              Sebuah perjalanan yang tidak hanya dijalani dengan ilmu dan profesionalisme,
+              tetapi juga dengan ketenangan, kasih, adab, dan penghormatan kepada setiap ibu.
+            </p>
           </SectionReveal>
         </div>
       </section>

@@ -1,13 +1,14 @@
 import { useState, useRef, useLayoutEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
-import { Phone, Calendar, ArrowRight, Star, MapPin, CheckCircle, Leaf, Heart, Droplets, X, Mail, MessageCircle, Flower2, Feather, HeartHandshake, Baby, Stethoscope } from 'lucide-react';
+import { Phone, Calendar, ArrowRight, ChevronLeft, ChevronRight, MapPin, CheckCircle, Leaf, Heart, Droplets, X, Mail, MessageCircle, Flower2, Feather, HeartHandshake, Baby, Stethoscope } from 'lucide-react';
 import CtaSection from '../components/CtaSection';
 import useReveal from '../hooks/useReveal';
 import { services, featuredCategories, alurLayanan } from '../data/services';
 import { featuredDoctors } from '../data/doctors';
 import { testimonials, stats } from '../data/testimonials';
 import './Home.css';
+import Seo from '../components/Seo';
 
 const iconMap = { Leaf, Heart, Droplets };
 
@@ -147,13 +148,74 @@ function SectionReveal({ children, className = '', delay = 0 }) {
   );
 }
 
+function TestimonialRail() {
+  const railRef = useRef(null);
+
+  const scrollByCard = (dir) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const card = rail.querySelector('.testimonial-card');
+    const step = card ? card.offsetWidth + 24 : rail.clientWidth * 0.8;
+    rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <div className="container">
+        <SectionReveal className="testimonials-head">
+          <div>
+            <span className="section-label">Testimoni</span>
+            <h2 className="heading-lg testimonials-title">
+              Setiap cerita adalah cahaya yang kami jaga.
+            </h2>
+          </div>
+          <div className="testimonial-nav">
+            <button
+              type="button"
+              className="testimonial-arrow"
+              onClick={() => scrollByCard(-1)}
+              aria-label="Testimoni sebelumnya"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              className="testimonial-arrow"
+              onClick={() => scrollByCard(1)}
+              aria-label="Testimoni berikutnya"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </SectionReveal>
+      </div>
+
+      <div className="testimonial-rail" ref={railRef}>
+        {testimonials.map((t) => (
+          <article className="testimonial-card" key={t.name}>
+            <blockquote className="testimonial-quote">
+              {t.quote.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </blockquote>
+            <footer className="testimonial-author">
+              <div className="testimonial-name">{t.name}</div>
+              <div className="testimonial-role">{t.role}</div>
+            </footer>
+          </article>
+        ))}
+      </div>
+    </>
+  );
+}
+
 const galleryPhotos = [
-  { src: '/images/galeri/baby-spa/1001168571-7728-5152-2.jpg',                              alt: 'Baby Spa Motherlight' },
-  { src: '/images/galeri/playground/playground-motherlight-9029-2.jpg',                     alt: 'Playground Motherlight' },
-  { src: '/images/galeri/poli-spesialis-anak/poli-spesialis-anak-motherlight-8999-2.jpg',   alt: 'Poli Spesialis Anak' },
-  { src: '/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.jpg', alt: 'Poli Konselor Menyusui' },
-  { src: '/images/galeri/obgyn/p1560875-3.png',                                             alt: 'Poli Obgyn Motherlight' },
-  { src: '/images/galeri/thumbnails/fasilitas-ranap.jpeg',                                   alt: 'Fasilitas Rawat Inap' },
+  { src: '/images/galeri/baby-spa/1001168571-7728-5152-2.webp',                              alt: 'Baby Spa Motherlight' },
+  { src: '/images/galeri/playground/playground-motherlight-9029-2.webp',                     alt: 'Playground Motherlight' },
+  { src: '/images/galeri/poli-spesialis-anak/poli-spesialis-anak-motherlight-8999-2.webp',   alt: 'Poli Spesialis Anak' },
+  { src: '/images/galeri/poli-konselor-menyusui/poli-konselor-menyusui-motherlight-9059-2.webp', alt: 'Poli Konselor Menyusui' },
+  { src: '/images/galeri/obgyn/p1560875-3.webp',                                             alt: 'Poli Obgyn Motherlight' },
+  { src: '/images/galeri/thumbnails/fasilitas-ranap.webp',                                   alt: 'Fasilitas Rawat Inap' },
 ];
 
 export default function Home() {
@@ -161,11 +223,16 @@ export default function Home() {
 
   return (
     <div className="home">
+      <Seo
+        title="Klinik Bersalin Karanganyar | Motherlight Birth Center"
+        description="Klinik bersalin dan birth center Islami di Karanganyar. Layanan persalinan normal, gentle birth, USG, dan pendampingan nifas oleh dokter spesialis kandungan."
+        path="/"
+      />
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="hero-section">
         <div className="hero-card">
           <img
-            src="/images/hero-building.jpg"
+            src="/images/hero-building.webp"
             alt=""
             aria-hidden="true"
             className="hero-bg-img"
@@ -194,7 +261,7 @@ export default function Home() {
             </div>
           </div>
           <img
-            src="/images/hero-building-mobile.png"
+            src="/images/hero-building-mobile.webp"
             alt="Gedung Motherlight Birth Center"
             className="hero-img-mobile"
           />
@@ -290,7 +357,7 @@ export default function Home() {
               <SectionReveal key={svc.id} delay={i * 80}>
                 <div className="specialty-card">
                   <div className="specialty-img-wrap">
-                    <img src={svc.image} alt={svc.name} className="specialty-img" />
+                    <img src={svc.image} alt={`${svc.name} di Motherlight Birth Center Karanganyar`} className="specialty-img" loading="lazy" decoding="async" />
                   </div>
                   <div className="specialty-body">
                     <h3 className="specialty-name">{svc.name}</h3>
@@ -318,7 +385,7 @@ export default function Home() {
                 Dari pendaftaran hingga pelukan pertama, kami ada di setiap tahap.
               </h2>
             </div>
-            <img src="/images/alur-pelayanan.jpg" alt="Motherlight interior" className="alur-photo" />
+            <img src="/images/alur-pelayanan.webp" alt="Interior Motherlight Birth Center Karanganyar" className="alur-photo" loading="lazy" decoding="async" />
           </SectionReveal>
           <div className="alur-steps">
             {alurLayanan.map((step, i) => (
@@ -338,33 +405,7 @@ export default function Home() {
 
       {/* ── Testimonials ─────────────────────────────────────── */}
       <section className="section section-alt testimonials-section">
-        <div className="container">
-          <SectionReveal className="text-center">
-            <span className="section-label">Testimoni</span>
-            <h2 className="heading-lg section-title">Setiap cerita adalah cahaya yang kami jaga.</h2>
-          </SectionReveal>
-          <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
-              <SectionReveal key={t.name} delay={i * 100}>
-                <div className="testimonial-card">
-                  <div className="testimonial-stars">
-                    {Array(5).fill(0).map((_, j) => (
-                      <Star key={j} size={16} fill="currentColor" />
-                    ))}
-                  </div>
-                  <p className="testimonial-quote">"{t.quote}"</p>
-                  <div className="testimonial-author">
-                    <div className="testimonial-avatar">{t.name[0]}</div>
-                    <div>
-                      <div className="testimonial-name">{t.name}</div>
-                      <div className="testimonial-role">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
+        <TestimonialRail />
       </section>
 
       {/* ── Featured Doctors ─────────────────────────────────── */}
@@ -423,7 +464,7 @@ export default function Home() {
             <div className="gallery-grid">
               {galleryPhotos.map((photo) => (
                 <div key={photo.src} className="gallery-grid-item">
-                  <img src={photo.src} alt={photo.alt} />
+                  <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
                 </div>
               ))}
             </div>

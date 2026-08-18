@@ -37,3 +37,6 @@ dist-ssr
 scripts/drive-session.json
 
 test-results/
+
+# Wrangler local state
+.wrangler/

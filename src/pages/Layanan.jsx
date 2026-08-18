@@ -3,6 +3,7 @@ import useReveal from '../hooks/useReveal';
 import { layananList } from '../data/services';
 import CtaSection from '../components/CtaSection';
 import './Layanan.css';
+import Seo from '../components/Seo';
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -16,6 +17,11 @@ function SectionReveal({ children, className = '', delay = 0 }) {
 export default function Layanan() {
   return (
     <div className="layanan">
+      <Seo
+        title="Layanan Persalinan & Gentle Birth di Karanganyar | Motherlight"
+        description="Layanan Motherlight Birth Center Karanganyar: persalinan normal, gentle birth, pemeriksaan kehamilan, USG, konsultasi laktasi, dan perawatan bayi."
+        path="/layanan"
+      />
       {/* ── Page Hero ─────────────────────────────────────────── */}
       <section className="page-hero layanan-hero">
         <div className="container">

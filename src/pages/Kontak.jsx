@@ -3,6 +3,7 @@ import useReveal from '../hooks/useReveal';
 import { operatingHours } from '../data/doctors';
 import CtaSection from '../components/CtaSection';
 import './Kontak.css';
+import Seo from '../components/Seo';
 
 function SectionReveal({ children, className = '', delay = 0 }) {
   const ref = useReveal();
@@ -37,6 +38,11 @@ const contactItems = [
 export default function Kontak() {
   return (
     <div className="kontak">
+      <Seo
+        title="Kontak & Lokasi Klinik Bersalin Karanganyar | Motherlight"
+        description="Hubungi Motherlight Birth Center di Jl. Adi Sumarmo No.369, Tohudan, Colomadu, Karanganyar. Telepon 0851-1781-7414, IGD dan persalinan 24 jam."
+        path="/kontak"
+      />
       {/* ── Page Hero ─────────────────────────────────────────── */}
       <section className="page-hero kontak-hero">
         <div className="container">

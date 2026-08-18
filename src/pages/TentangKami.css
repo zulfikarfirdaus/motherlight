@@ -19,144 +19,144 @@
 /* ── Intro / Story ─────────────────────────────────────────── */
 .intro-section {
   padding-top: var(--section-pad);
-  padding-bottom: var(--section-pad);
+  padding-bottom: 72px;
 }
 
 .intro-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-items: stretch;
-}
-
-.intro-grid > .intro-left {
-  display: flex;
-  flex-direction: column;
-}
-
-.intro-quote-mark {
-  font-family: var(--font-heading);
-  font-size: 4.5rem;
-  font-weight: 700;
-  line-height: 0.6;
-  color: #b5a9a1;
-  margin-bottom: -14px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
 }
 
 .intro-headline {
-  font-size: clamp(1.35rem, 2.2vw, 2rem);
-  font-weight: 700;
-  line-height: 1.4;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  /* Gowun Batang ships only 400 and 700, so a hairline stroke fakes the
+     semibold weight in between without switching typeface. */
+  font-weight: 400;
+  -webkit-text-stroke: 0.45px currentColor;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
   color: var(--text);
-  margin-bottom: 36px;
-}
-
-.intro-photo {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 7;
-  object-fit: cover;
-  object-position: center bottom;
-  border-radius: 18px;
-  margin-top: auto;
-}
-
-.intro-grid > .intro-card {
-  background: var(--primary);
-  border-radius: 28px;
-  padding: clamp(32px, 4vw, 56px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-}
-
-.intro-card p {
-  font-size: 16.5px;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.85;
   margin: 0;
+  text-wrap: pretty;
 }
 
-/* ── Visi & Harapan ────────────────────────────────────────── */
-.visi-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1fr;
-  gap: 72px;
-  align-items: center;
-}
-
-.visi-media {
-  display: flex;
-  justify-content: center;
-}
-
-.visi-stack-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 380px;
-}
-
-.visi-stack {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-}
-
-.visi-stack .card {
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-}
-
-.swipe-pill {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 50px;
-  background: var(--white);
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  box-shadow: var(--shadow);
-  pointer-events: none;
-  transform: rotate(-8deg);
-}
-
-.swipe-pill svg {
+.intro-headline em {
+  display: block;
+  font-style: normal;
+  font-weight: inherit;
   color: var(--primary);
 }
 
-.visi-content {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+.intro-body p {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 0 0 22px;
+}
+
+.intro-body p:last-child { margin-bottom: 0; }
+
+/* ── Visi & Harapan ────────────────────────────────────────── */
+.visi-section {
+  padding: 32px 0 0;
+}
+
+/* Full-bleed rule closing the section, edge to edge. */
+.visi-rule {
+  width: 100%;
+  height: 1px;
+  border: none;
+  margin: 0;
+  background: var(--border);
+}
+
+/* Each row is ruled off at the top: title left, statement right. */
+.visi-row {
+  display: grid;
+  /* Columns mirror .intro-grid so the copy lines up with the section above. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
 }
 
 .visi-title {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 700;
+  line-height: 1.3;
   color: var(--text);
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .visi-desc {
   font-size: 16.5px;
-  color: var(--text-muted);
-  line-height: 1.8;
+  color: var(--text);
+  line-height: 1.85;
   margin: 0;
+  max-width: 58ch;
+}
+
+/* ── Pendiri ───────────────────────────────────────────────── */
+.founder-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+}
+
+/* The photo trails the text while the long bio scrolls past it. */
+.founder-media {
+  align-self: stretch;
+}
+
+.founder-sticky {
+  position: sticky;
+  top: 120px;
+}
+
+.founder-figure {
+  margin: 0;
+  max-width: 380px;
+}
+
+.founder-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+}
+
+.founder-title {
+  margin: 0 0 28px;
+  line-height: 1.3;
+}
+
+.founder-content p {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 0 0 20px;
+}
+
+.founder-content p:last-child {
+  margin-bottom: 0;
 }
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .intro-grid { grid-template-columns: 1fr; gap: 32px; }
-  .intro-headline { margin-bottom: 24px; }
-  .intro-photo { width: 100%; margin-top: 0; }
-  .visi-grid { grid-template-columns: 1fr; gap: 48px; }
-  .visi-stack-wrap { max-width: 280px; transform: translateX(-8%); }
+  .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+  .visi-row { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+  .visi-section { padding: 24px 0 0; }
+  .founder-grid { grid-template-columns: 1fr; gap: 40px; }
+  .founder-sticky { position: static; }
+  .founder-photo { aspect-ratio: 1 / 1; max-height: 420px; }
+  .founder-title { margin-bottom: 20px; }
 }

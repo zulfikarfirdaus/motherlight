@@ -7,7 +7,7 @@
     "dev": "concurrently \"node --watch server/index.js\" \"vite\"",
     "dev:api": "node --watch server/index.js",
     "dev:vite": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.js",
     "start": "NODE_ENV=production node server/index.js",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -16,7 +16,8 @@
     "gallery:thumbs": "node scripts/sync-gallery.js --thumbs",
     "gallery:albums": "node scripts/sync-gallery.js --albums",
     "migrate:supabase": "node migrate-to-supabase.js",
-    "automate:full": "npx playwright test tests/automate-supabase-setup.spec.js --headed"
+    "automate:full": "npx playwright test tests/automate-supabase-setup.spec.js --headed",
+    "build:only": "vite build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
