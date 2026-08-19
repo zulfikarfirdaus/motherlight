@@ -107,41 +107,20 @@ export default function TentangKami() {
             </p>
             <p>
               Beliau menyelesaikan pendidikan Spesialis Obstetri dan Ginekologi di
-              Universitas Gadjah Mada pada tahun 2012, kemudian melanjutkan pendidikan
-              hingga menjadi konsultan pada tahun 2018.
+              Universitas Gadjah Mada pada tahun 2012 dan menjadi konsultan pada tahun
+              2018. Sejak tahun 2020, dr. Bima juga mengajar di Program Magister Kebidanan
+              STIKES Guna Bangsa Yogyakarta.
             </p>
             <p>
-              Dalam kesehariannya, dr. Bima mendampingi para ibu dan keluarga melalui
-              praktik klinis dengan pendekatan yang tenang, personal, dan penuh perhatian.
-              Baginya, setiap ibu perlu merasa didengar, dipahami, dan dilibatkan dalam
-              setiap keputusan selama perjalanan kehamilan dan persalinan. Pendekatan ini
-              selaras dengan nilai Motherlight yang mengutamakan pendampingan personal,
-              komunikasi yang baik, serta penghormatan terhadap pilihan dan martabat
-              setiap ibu.
+              Komitmennya terhadap pendidikan diwujudkan melalui pengajaran, penelitian,
+              dan karya ilmiah. Pada tahun 2025, beliau menjadi salah satu penulis Buku
+              Ajar Asuhan Persalinan dan BBL.
             </p>
             <p>
-              Selain menjalankan praktik klinis, dr. Bima juga aktif dalam dunia pendidikan.
-              Sejak tahun 2020, beliau mengajar di Program Magister Kebidanan STIKES Guna
-              Bangsa Yogyakarta, dengan bidang pengajaran yang mencakup kehamilan,
-              persalinan, masa nifas, kesehatan reproduksi, praktik klinis kebidanan, dan
-              penelitian.
-            </p>
-            <p>
-              Kecintaannya pada pendidikan juga diwujudkan melalui karya ilmiah dan
-              publikasi. Pada tahun 2025, dr. Bima menjadi salah satu penulis Buku Ajar
-              Asuhan Persalinan dan BBL, yang membahas berbagai aspek penting dalam
-              pendampingan ibu dan bayi, mulai dari proses persalinan dan perawatan bayi
-              baru lahir hingga masa postpartum dan komunikasi dalam pelayanan kesehatan.
-            </p>
-            <p>
-              Melalui Motherlight, dr. Bima membawa pengalaman klinis dan akademis tersebut
-              ke dalam sebuah ruang yang dirancang untuk menemani perjalanan ibu dengan
-              lebih utuh. Mulai dari mempersiapkan kehamilan dan persalinan, mendampingi
-              proses kelahiran, hingga masa nifas dan menyusui.
-            </p>
-            <p>
-              Sebuah perjalanan yang tidak hanya dijalani dengan ilmu dan profesionalisme,
-              tetapi juga dengan ketenangan, kasih, adab, dan penghormatan kepada setiap ibu.
+              Melalui Motherlight, dr. Bima menghadirkan pengalaman klinis dan akademisnya
+              dalam pelayanan yang personal, tenang, dan penuh perhatian, agar setiap ibu
+              merasa didengar, dihargai, dan didampingi sepanjang perjalanan kehamilan
+              hingga persalinan.
             </p>
           </SectionReveal>
         </div>
