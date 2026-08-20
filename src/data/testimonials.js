@@ -11,6 +11,14 @@ export const testimonials = [
     ],
   },
   {
+    name: 'Bapak Ihsan & Ibu Nike',
+    quote: [
+      'Dari lubuk hati kami yang paling dalam, kami ingin menyampaikan rasa terima kasih kami kepada dr. Bima dan dr. Dina yang telah membersamai kami sepenuh hati. dr. Bima memberi rasa aman sejak kehamilan hingga persalinan, dan dr. Dina menyambut serta merawat buah hati kami dengan penuh perhatian.',
+      "Kebaikan dokter berdua akan selalu menjadi bagian indah yang kami kenang. Semoga Allah Subhanahu wa Ta'ala senantiasa melimpahkan kesehatan, kebahagiaan, dan keberkahan dalam setiap langkah dan tugas mulia yang dokter jalankan.",
+      'Salam hangat dan doa terbaik dari kami sekeluarga.',
+    ],
+  },
+  {
     name: 'Lorem Ipsum',
     role: 'Ibu dari Dolor',
     quote: [

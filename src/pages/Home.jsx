@@ -15,7 +15,7 @@ const iconMap = { Leaf, Heart, Droplets };
 // Warm-tone underlayers that sweep in before the white panel
 const FEAT_LAYER_COLORS = ['#e7d2c8', '#d25135'];
 
-function FeaturedModal({ cat, onClose }) {
+function SheetModal({ title, children, onClose, className = '' }) {
   const backdropRef = useRef(null);
   const sheetRef = useRef(null);
   const panelRef = useRef(null);
@@ -58,7 +58,7 @@ function FeaturedModal({ cat, onClose }) {
       tlRef.current = tl;
     });
     return () => ctx.revert();
-  }, [cat]);
+  }, []);
 
   const handleClose = useCallback(() => {
     if (closingRef.current) return;
@@ -78,7 +78,11 @@ function FeaturedModal({ cat, onClose }) {
   }, [onClose]);
 
   return (
-    <div className="feat-modal-backdrop" ref={backdropRef} onClick={handleClose}>
+    <div
+      className={`feat-modal-backdrop ${className}`}
+      ref={backdropRef}
+      onClick={handleClose}
+    >
       <div className="feat-sheet" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
         <div className="feat-prelayers" aria-hidden="true">
           {FEAT_LAYER_COLORS.map((c) => (
@@ -88,26 +92,48 @@ function FeaturedModal({ cat, onClose }) {
         <div className="feat-modal" ref={panelRef}>
           <div className="feat-modal-handle" aria-hidden="true" />
           <div className="feat-modal-header">
-            <h3 className="feat-modal-title">{cat.title}</h3>
+            <h3 className="feat-modal-title">{title}</h3>
             <button className="feat-modal-close" onClick={handleClose} aria-label="Tutup">
               <X size={20} />
             </button>
           </div>
-          <div className="feat-modal-body">
-            {cat.items.map((item) => (
-              <div key={item.name} className="feat-modal-item">
-                <h4 className="feat-modal-item-name">{item.name}</h4>
-                <ul className="feat-modal-sub">
-                  {item.sub.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <div className="feat-modal-body">{children}</div>
         </div>
       </div>
     </div>
+  );
+}
+
+function FeaturedModal({ cat, onClose }) {
+  return (
+    <SheetModal title={cat.title} onClose={onClose}>
+      {cat.items.map((item) => (
+        <div key={item.name} className="feat-modal-item">
+          <h4 className="feat-modal-item-name">{item.name}</h4>
+          <ul className="feat-modal-sub">
+            {item.sub.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </SheetModal>
+  );
+}
+
+function TestimonialModal({ testimonial, onClose }) {
+  return (
+    <SheetModal title="Testimoni" onClose={onClose} className="testi-sheet">
+      {testimonial.quote.map((para, i) => (
+        <p key={i} className="feat-modal-item testi-modal-para">
+          {para}
+        </p>
+      ))}
+      <footer className="feat-modal-item testi-modal-author">
+        <div className="testimonial-name">{testimonial.name}</div>
+        {testimonial.role && <div className="testimonial-role">{testimonial.role}</div>}
+      </footer>
+    </SheetModal>
   );
 }
 
@@ -148,8 +174,26 @@ function SectionReveal({ children, className = '', delay = 0 }) {
   );
 }
 
+// Cards show whole paragraphs up to roughly this length; the rest opens in a sheet.
+const EXCERPT_CHARS = 300;
+
+// Trails the excerpt with an ellipsis so the cut is visible
+const withEllipsis = (para) => `${para.replace(/[.,;]\s*$/, '')}\u2026`;
+
+function excerptOf(quote) {
+  const paras = [];
+  let len = 0;
+  for (const para of quote) {
+    if (paras.length && len + para.length > EXCERPT_CHARS) break;
+    paras.push(para);
+    len += para.length;
+  }
+  return paras;
+}
+
 function TestimonialRail() {
   const railRef = useRef(null);
+  const [openTesti, setOpenTesti] = useState(null);
 
   const scrollByCard = (dir) => {
     const rail = railRef.current;
@@ -191,20 +235,41 @@ function TestimonialRail() {
       </div>
 
       <div className="testimonial-rail" ref={railRef}>
-        {testimonials.map((t) => (
-          <article className="testimonial-card" key={t.name}>
-            <blockquote className="testimonial-quote">
-              {t.quote.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </blockquote>
-            <footer className="testimonial-author">
-              <div className="testimonial-name">{t.name}</div>
-              <div className="testimonial-role">{t.role}</div>
-            </footer>
-          </article>
-        ))}
+        {testimonials.map((t) => {
+          const preview = excerptOf(t.quote);
+          const hasMore = preview.length < t.quote.length;
+          return (
+            <article className="testimonial-card" key={t.name}>
+              <blockquote className="testimonial-quote">
+                {preview.map((para, i) => (
+                  <p key={i}>
+                    {hasMore && i === preview.length - 1 ? withEllipsis(para) : para}
+                  </p>
+                ))}
+              </blockquote>
+              {hasMore && (
+                <button
+                  type="button"
+                  className="testimonial-more"
+                  onClick={() => setOpenTesti(t)}
+                  aria-label={`Baca testimoni lengkap dari ${t.name}`}
+                >
+                  Selengkapnya
+                  <ArrowRight size={16} />
+                </button>
+              )}
+              <footer className="testimonial-author">
+                <div className="testimonial-name">{t.name}</div>
+                {t.role && <div className="testimonial-role">{t.role}</div>}
+              </footer>
+            </article>
+          );
+        })}
       </div>
+
+      {openTesti && (
+        <TestimonialModal testimonial={openTesti} onClose={() => setOpenTesti(null)} />
+      )}
     </>
   );
 }

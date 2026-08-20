@@ -343,6 +343,31 @@
   line-height: 1.55;
 }
 
+.testi-modal-para {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Author sits under the quote, mirroring the card */
+.testi-modal-author {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+/* Fills the sheet so the author can sit at the bottom on short quotes */
+.testi-sheet .feat-modal-body { flex: 1; }
+
+/* Testimoni sheet stops just below the fixed navbar */
+@media (max-width: 767px) {
+  .testi-sheet .feat-sheet,
+  .testi-sheet .feat-modal {
+    max-height: calc(100dvh - 72px);
+    height: calc(100dvh - 72px);
+  }
+}
+
 /* Desktop: right-anchored full-height sheet */
 @media (min-width: 768px) {
   .feat-modal-backdrop {
@@ -634,7 +659,6 @@
 
 .testimonial-quote {
   margin: 0;
-  flex: 1;
 }
 
 .testimonial-quote p {
@@ -646,14 +670,43 @@
 
 .testimonial-quote p:last-child { margin-bottom: 0; }
 
-.testimonial-author { margin-top: 40px; }
+.testimonial-more {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  transition: gap 0.25s ease, opacity 0.25s ease;
+}
+
+.testimonial-more:hover { gap: 12px; opacity: 0.8; }
+
+.testimonial-more:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Author stays pinned to the bottom so cards line up across the rail */
+.testimonial-author {
+  margin-top: auto;
+  padding-top: 40px;
+}
 
 .testimonial-name {
   font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 700;
   line-height: 1.25;
-  color: var(--primary);
+  color: var(--text);
 }
 
 .testimonial-role {
@@ -701,6 +754,7 @@
 @media (prefers-reduced-motion: reduce) {
   .testimonial-card:hover,
   .testimonial-arrow:hover { transform: none; }
+  .testimonial-more:hover { gap: 8px; }
 }
 
 /* ── Gallery Teaser ────────────────────────────────────────── */
@@ -912,6 +966,8 @@
 }
 @media (max-width: 640px) {
   .testimonials-head { flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 32px; }
+  /* Rail is swipeable on touch, so the arrows are redundant */
+  .testimonial-nav { display: none; }
   .testimonial-card { width: min(400px, 84vw); padding: 32px 28px; border-radius: 22px; }
   .testimonial-quote p { font-size: 15.5px; }
   .testimonial-name { font-size: 20px; }
