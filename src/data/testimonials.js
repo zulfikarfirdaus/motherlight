@@ -1,7 +1,7 @@
 // Quotes are arrays of paragraphs, rendered one testimonial at a time.
 export const testimonials = [
   {
-    name: 'Pak Bian',
+    name: 'Bapak Bian',
     role: 'Suami dari Ibu Vicky',
     quote: [
       'Sejak sebelum persalinan, kami merasa benar-benar didampingi. Bidan Motherlight selalu memantau kondisi istri saya, memberikan kabar, dan memastikan kami tidak merasa menjalani proses ini sendirian.',
@@ -30,6 +30,17 @@ export const testimonials = [
       'dr. Dina, terima kasih yang sebesar-besarnya atas perhatian, kecermatan, dan kehangatan dr. Dina dalam menyambut serta merawat buah hati kami sejak detik-detik pertamanya lahir. Sentuhan dan ketulusan dr. Dina memberikan rasa tenang yang luar biasa bagi kami sebagai orang tua.',
       'Kehadiran, bimbingan, dan kebaikan dr. Bima serta dr. Dina tidak hanya membantu proses medis kami, tetapi juga menjadi bagian indah dari sejarah keluarga kami yang tak akan pernah kami lupakan.',
       "Semoga Allah Subhanahu Wa Ta'ala senantiasa melimpahkan kesehatan, kebahagiaan, dan keberkahan dalam setiap langkah dan tugas mulia yang dokter jalankan.",
+      'Salam hangat dan doa terbaik dari kami sekeluarga.',
+    ],
+  },
+  {
+    name: 'Bapak Ihsan & Ibu Niken',
+    quote: [
+      'Kepada Tim Bidan yang luar biasa,',
+      'Terima kasih yang sebesar-besarnya dari lubuk hati kami atas segala kebaikan, kesabaran, dan kehangatan yang diberikan selama proses persalinan hingga perawatan kami dan si kecil.',
+      'Sentuhan lembut, kata-kata penyemangat, serta kesiapan para bidan dalam mendampingi setiap detik perjuangan kami sangatlah berarti.',
+      'Kehadiran tim bidan tidak hanya membuat proses persalinan terasa jauh lebih tenang, tetapi juga membuat kami merasa begitu diperhatikan dan disayangi.',
+      'Semoga kebaikan, dedikasi, dan kerja keras tim bidan senantiasa dibalas dengan kesehatan, kebahagiaan, dan keberkahan yang berlimpah.',
       'Salam hangat dan doa terbaik dari kami sekeluarga.',
     ],
   },

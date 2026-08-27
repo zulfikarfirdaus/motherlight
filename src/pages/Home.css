@@ -709,12 +709,6 @@
   color: var(--text);
 }
 
-.testimonial-role {
-  font-size: 15px;
-  color: var(--text-muted);
-  margin-top: 6px;
-}
-
 .testimonial-nav {
   display: flex;
   align-items: center;

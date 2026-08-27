@@ -130,8 +130,10 @@ function TestimonialModal({ testimonial, onClose }) {
         </p>
       ))}
       <footer className="feat-modal-item testi-modal-author">
-        <div className="testimonial-name">{testimonial.name}</div>
-        {testimonial.role && <div className="testimonial-role">{testimonial.role}</div>}
+        <div className="testimonial-name">
+          {testimonial.name}
+          {testimonial.role ? `, ${testimonial.role}` : ''}
+        </div>
       </footer>
     </SheetModal>
   );
@@ -251,10 +253,10 @@ function TestimonialRail() {
       </div>
 
       <div className="testimonial-rail" ref={railRef}>
-        {testimonials.map((t) => {
+        {testimonials.map((t, idx) => {
           const { paras: preview, truncated: hasMore } = excerptOf(t.quote);
           return (
-            <article className="testimonial-card" key={t.name}>
+            <article className="testimonial-card" key={`${t.name}-${idx}`}>
               <blockquote className="testimonial-quote">
                 {preview.map((para, i) => (
                   <p key={i}>
@@ -274,8 +276,10 @@ function TestimonialRail() {
                 </button>
               )}
               <footer className="testimonial-author">
-                <div className="testimonial-name">{t.name}</div>
-                {t.role && <div className="testimonial-role">{t.role}</div>}
+                <div className="testimonial-name">
+                  {t.name}
+                  {t.role ? `, ${t.role}` : ''}
+                </div>
               </footer>
             </article>
           );
