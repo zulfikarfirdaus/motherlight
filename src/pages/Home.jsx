@@ -331,7 +331,7 @@ export default function Home() {
           <SectionReveal className="philosophy-head">
             <span className="philosophy-label">Visi &amp; Pendekatan Kami</span>
             <h2 className="philosophy-title">
-              Motherlight hadir sebagai birth center Islami yang mendukung persalinan
+              Motherlight hadir sebagai birth center yang mendukung persalinan
               normal dengan suasana tenang, nyaman, dan penuh kasih.
             </h2>
           </SectionReveal>

@@ -18,14 +18,6 @@ export const doctors = {
         { day: 'Sabtu', times: ['08:00–12:00'] },
       ],
     },
-    {
-      name: 'dr. Anik Suryaningsih, Sp. OG',
-      specialty: 'Spesialis Obstetri & Ginekologi',
-      bio: '',
-      schedule: [
-        { day: 'Selasa – Jumat', times: ['13:00–15:00'] },
-      ],
-    },
   ],
   anak: [
     {

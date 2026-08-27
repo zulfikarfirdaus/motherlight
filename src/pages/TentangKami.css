@@ -109,6 +109,12 @@
   align-items: start;
 }
 
+/* No photo for now, so the bio takes the full width. */
+.founder-grid-no-photo {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 80ch;
+}
+
 /* The photo trails the text while the long bio scrolls past it. */
 .founder-media {
   align-self: stretch;
