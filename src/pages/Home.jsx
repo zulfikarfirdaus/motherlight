@@ -180,15 +180,31 @@ const EXCERPT_CHARS = 300;
 // Trails the excerpt with an ellipsis so the cut is visible
 const withEllipsis = (para) => `${para.replace(/[.,;]\s*$/, '')}\u2026`;
 
+// Truncates to a consistent character budget (cutting mid-paragraph on a word
+// boundary if needed) so every card's excerpt lands at roughly the same length.
 function excerptOf(quote) {
   const paras = [];
   let len = 0;
+  let truncated = false;
   for (const para of quote) {
-    if (paras.length && len + para.length > EXCERPT_CHARS) break;
-    paras.push(para);
-    len += para.length;
+    const remaining = EXCERPT_CHARS - len;
+    if (remaining <= 0) {
+      truncated = true;
+      break;
+    }
+    if (para.length <= remaining) {
+      paras.push(para);
+      len += para.length;
+    } else {
+      const cut = para.slice(0, remaining);
+      const lastSpace = cut.lastIndexOf(' ');
+      paras.push((lastSpace > 20 ? cut.slice(0, lastSpace) : cut).trim());
+      truncated = true;
+      break;
+    }
   }
-  return paras;
+  if (!truncated && paras.length < quote.length) truncated = true;
+  return { paras, truncated };
 }
 
 function TestimonialRail() {
@@ -236,8 +252,7 @@ function TestimonialRail() {
 
       <div className="testimonial-rail" ref={railRef}>
         {testimonials.map((t) => {
-          const preview = excerptOf(t.quote);
-          const hasMore = preview.length < t.quote.length;
+          const { paras: preview, truncated: hasMore } = excerptOf(t.quote);
           return (
             <article className="testimonial-card" key={t.name}>
               <blockquote className="testimonial-quote">

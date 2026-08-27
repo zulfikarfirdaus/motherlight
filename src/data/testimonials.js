@@ -1,36 +1,36 @@
 // Quotes are arrays of paragraphs, rendered one testimonial at a time.
-// TODO: Replace the lorem ipsum placeholders with official testimonials.
 export const testimonials = [
   {
     name: 'Pak Bian',
     role: 'Suami dari Ibu Vicky',
     quote: [
-      'Sejak sebelum persalinan, kami merasa benar-benar didampingi. Tim Motherlight selalu memantau kondisi istri saya dan membuat kami merasa tenang.',
-      'Suasananya homey, bersih, dan nyaman. Saya juga bisa benar-benar hadir di sisi istri sampai anak kedua kami lahir.',
-      'Terima kasih dokter Bima, dokter Dina, dan seluruh tim Motherlight. Kami merasa sangat diperhatikan dan didampingi dengan hangat sejak kehamilan hingga persalinan.',
+      'Sejak sebelum persalinan, kami merasa benar-benar didampingi. Bidan Motherlight selalu memantau kondisi istri saya, memberikan kabar, dan memastikan kami tidak merasa menjalani proses ini sendirian.',
+      'Saat datang, suasananya terasa sangat homey, bersih, dan nyaman. Yang paling berkesan bagi saya, kali ini saya bisa benar-benar hadir di sisi istri, mendampingi dari awal hingga anak kedua kami lahir.',
+      'Ketika proses persalinan menjadi cukup panjang, dokter Bima dan para bidan terus memberikan dukungan dan semangat kepada kami. Alhamdulillah, semuanya berjalan dengan lancar.',
+      'Pengalaman melahirkan di Motherlight terasa berbeda dari yang kami bayangkan. Ruang persalinan menyatu dengan kamar tempat kami menginap, bayi bisa terus bersama kami, dan seluruh proses terasa lebih hangat serta personal.',
+      'Terima kasih dokter Bima, dokter Dina, dan seluruh tim Motherlight. Kami merasa sangat diperhatikan dan didampingi dengan baik, sejak masa kehamilan hingga persalinan.',
     ],
   },
   {
-    name: 'Bapak Ihsan & Ibu Nike',
+    name: 'Bapak Tio',
+    role: 'Suami dari Ibu Arum',
     quote: [
-      'Dari lubuk hati kami yang paling dalam, kami ingin menyampaikan rasa terima kasih kami kepada dr. Bima dan dr. Dina yang telah membersamai kami sepenuh hati. dr. Bima memberi rasa aman sejak kehamilan hingga persalinan, dan dr. Dina menyambut serta merawat buah hati kami dengan penuh perhatian.',
-      "Kebaikan dokter berdua akan selalu menjadi bagian indah yang kami kenang. Semoga Allah Subhanahu wa Ta'ala senantiasa melimpahkan kesehatan, kebahagiaan, dan keberkahan dalam setiap langkah dan tugas mulia yang dokter jalankan.",
+      'Awalnya saya hanya mengikuti keinginan istri untuk melahirkan di Motherlight. Tapi setelah menjalaninya, pengalaman kami benar-benar jauh di luar ekspektasi.',
+      'Dokter dan para bidan mendampingi dengan sangat penuh perhatian, selalu hadir saat dibutuhkan, bahkan di tengah malam. Rasanya bukan sekadar dilayani tenaga medis, tetapi ditemani seperti keluarga sendiri.',
+      'Saya bisa mendampingi istri dari awal sampai anak kami lahir, bahkan memotong sendiri tali pusarnya. Itu menjadi pengalaman yang sangat berarti bagi saya sebagai seorang ayah.',
+      'Kalau Allah memberi kami kesempatan untuk memiliki anak lagi, insya Allah kami ingin kembali ke Motherlight.',
+    ],
+  },
+  {
+    name: 'Bapak Ihsan & Ibu Niken',
+    quote: [
+      'Kepada Dr. Bima Suryantara, Sp.OG., subsp. Obginsos dan dr. Dina Rismawati, Sp.A, M.Sc yang kami hormati,',
+      'Dari lubuk hati yang paling dalam, kami ingin menyampaikan rasa terima kasih dan apresiasi yang tak terhingga atas seluruh dedikasi, kehangatan, dan ketulusan dokter berdua dalam membersamai perjalanan kami.',
+      'dr. Bima, terima kasih banyak telah menjadi garda terdepan sejak awal masa kehamilan hingga momen persalinan. Kehadiran, ketenangan, serta ketelitian dr. Bima selalu berhasil memberikan rasa aman dan kenyamanan di setiap pemeriksaan, terutama di saat-saat penuh kecemasan. Terima kasih telah membantu menyambut buah hati kami ke dunia ini dengan selamat dan sehat.',
+      'dr. Dina, terima kasih yang sebesar-besarnya atas perhatian, kecermatan, dan kehangatan dr. Dina dalam menyambut serta merawat buah hati kami sejak detik-detik pertamanya lahir. Sentuhan dan ketulusan dr. Dina memberikan rasa tenang yang luar biasa bagi kami sebagai orang tua.',
+      'Kehadiran, bimbingan, dan kebaikan dr. Bima serta dr. Dina tidak hanya membantu proses medis kami, tetapi juga menjadi bagian indah dari sejarah keluarga kami yang tak akan pernah kami lupakan.',
+      "Semoga Allah Subhanahu Wa Ta'ala senantiasa melimpahkan kesehatan, kebahagiaan, dan keberkahan dalam setiap langkah dan tugas mulia yang dokter jalankan.",
       'Salam hangat dan doa terbaik dari kami sekeluarga.',
-    ],
-  },
-  {
-    name: 'Lorem Ipsum',
-    role: 'Ibu dari Dolor',
-    quote: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
-      'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    ],
-  },
-  {
-    name: 'Dolor Sit',
-    role: 'Ibu dari Amet',
-    quote: [
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.',
     ],
   },
 ];
