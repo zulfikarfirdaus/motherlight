@@ -630,6 +630,7 @@
 /* Rail starts flush with the container, then bleeds off the right edge. */
 .testimonial-rail {
   display: flex;
+  align-items: flex-start;
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -649,7 +650,7 @@
   flex-direction: column;
   background: var(--white);
   border-radius: 28px;
-  padding: 40px;
+  padding: 40px 40px 32px;
   transition: transform var(--transition);
 }
 
@@ -665,10 +666,12 @@
   font-size: 16px;
   line-height: 1.75;
   color: var(--text);
-  margin: 0 0 16px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
 }
-
-.testimonial-quote p:last-child { margin-bottom: 0; }
 
 .testimonial-more {
   align-self: flex-start;
@@ -695,10 +698,8 @@
   border-radius: 4px;
 }
 
-/* Author stays pinned to the bottom so cards line up across the rail */
 .testimonial-author {
-  margin-top: auto;
-  padding-top: 40px;
+  margin-top: 12px;
 }
 
 .testimonial-name {
@@ -707,6 +708,9 @@
   font-weight: 700;
   line-height: 1.25;
   color: var(--text);
+  min-height: 2.5em;
+  display: flex;
+  align-items: flex-end;
 }
 
 .testimonial-nav {
@@ -963,7 +967,7 @@
   /* Rail is swipeable on touch, so the arrows are redundant */
   .testimonial-nav { display: none; }
   .testimonial-card { width: min(400px, 84vw); padding: 32px 28px; border-radius: 22px; }
-  .testimonial-quote p { font-size: 15.5px; }
+  .testimonial-quote p { font-size: 15.5px; -webkit-line-clamp: 8; }
   .testimonial-name { font-size: 20px; }
   .testimonial-rail { gap: 16px; }
   .br-desktop { display: none; }

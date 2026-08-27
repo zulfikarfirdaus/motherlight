@@ -176,37 +176,13 @@ function SectionReveal({ children, className = '', delay = 0 }) {
   );
 }
 
-// Cards show whole paragraphs up to roughly this length; the rest opens in a sheet.
-const EXCERPT_CHARS = 300;
+// The excerpt itself is clamped to a fixed number of lines in CSS (see
+// .testimonial-quote p), so every card matches height regardless of content.
+// This just decides whether a quote is long enough to need the "read more" sheet.
+const EXCERPT_CHARS = 260;
 
-// Trails the excerpt with an ellipsis so the cut is visible
-const withEllipsis = (para) => `${para.replace(/[.,;]\s*$/, '')}\u2026`;
-
-// Truncates to a consistent character budget (cutting mid-paragraph on a word
-// boundary if needed) so every card's excerpt lands at roughly the same length.
-function excerptOf(quote) {
-  const paras = [];
-  let len = 0;
-  let truncated = false;
-  for (const para of quote) {
-    const remaining = EXCERPT_CHARS - len;
-    if (remaining <= 0) {
-      truncated = true;
-      break;
-    }
-    if (para.length <= remaining) {
-      paras.push(para);
-      len += para.length;
-    } else {
-      const cut = para.slice(0, remaining);
-      const lastSpace = cut.lastIndexOf(' ');
-      paras.push((lastSpace > 20 ? cut.slice(0, lastSpace) : cut).trim());
-      truncated = true;
-      break;
-    }
-  }
-  if (!truncated && paras.length < quote.length) truncated = true;
-  return { paras, truncated };
+function hasMoreOf(quote) {
+  return quote.reduce((sum, para) => sum + para.length, 0) > EXCERPT_CHARS;
 }
 
 function TestimonialRail() {
@@ -254,15 +230,11 @@ function TestimonialRail() {
 
       <div className="testimonial-rail" ref={railRef}>
         {testimonials.map((t, idx) => {
-          const { paras: preview, truncated: hasMore } = excerptOf(t.quote);
+          const hasMore = hasMoreOf(t.quote);
           return (
             <article className="testimonial-card" key={`${t.name}-${idx}`}>
               <blockquote className="testimonial-quote">
-                {preview.map((para, i) => (
-                  <p key={i}>
-                    {hasMore && i === preview.length - 1 ? withEllipsis(para) : para}
-                  </p>
-                ))}
+                <p>{t.quote.join(' ')}</p>
               </blockquote>
               {hasMore && (
                 <button
@@ -396,6 +368,11 @@ export default function Home() {
 
       {modalCat && <FeaturedModal cat={modalCat} onClose={() => setModalCat(null)} />}
 
+      {/* ── Testimonials ─────────────────────────────────────── */}
+      <section className="section section-alt testimonials-section">
+        <TestimonialRail />
+      </section>
+
       {/* ── Keunggulan Motherlight ───────────────────────────── */}
       <section className="keunggulan-section">
         <div className="container">
@@ -485,11 +462,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ── Testimonials ─────────────────────────────────────── */}
-      <section className="section section-alt testimonials-section">
-        <TestimonialRail />
       </section>
 
       {/* ── Featured Doctors ─────────────────────────────────── */}
