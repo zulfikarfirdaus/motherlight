@@ -32,15 +32,16 @@
 .intro-headline {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 3.6vw, 3.25rem);
-  /* Gowun Batang ships only 400 and 700, so a hairline stroke fakes the
-     semibold weight in between without switching typeface. */
-  font-weight: 400;
-  -webkit-text-stroke: 0.45px currentColor;
+  /* Matches .philosophy-title on the homepage. */
+  font-weight: 700;
   line-height: 1.18;
   letter-spacing: -0.015em;
   color: var(--text);
   margin: 0;
-  text-wrap: pretty;
+  /* Balance evens the rag so "untuk" sits with "mendampingi" rather than
+     hanging off line one. Narrowing the column instead only holds at some
+     widths, since the size is vw-driven but the column is container-driven. */
+  text-wrap: balance;
 }
 
 .intro-headline em {
@@ -104,15 +105,9 @@
 /* ── Pendiri ───────────────────────────────────────────────── */
 .founder-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
-  gap: 72px;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr);
+  gap: 64px;
   align-items: start;
-}
-
-/* No photo for now, so the bio takes the full width. */
-.founder-grid-no-photo {
-  grid-template-columns: minmax(0, 1fr);
-  max-width: 80ch;
 }
 
 /* The photo trails the text while the long bio scrolls past it. */
@@ -127,17 +122,19 @@
 
 .founder-figure {
   margin: 0;
-  max-width: 380px;
+  max-width: 300px;
 }
 
 .founder-photo {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: auto;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   border-radius: var(--radius);
-  background: var(--bg-alt);
+  /* The portrait is a cutout on white, so the frame carries it through. */
+  background: #fff;
 }
 
 .founder-title {
@@ -159,10 +156,14 @@
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+  /* 72px below the copy leaves a hole once the columns stack. */
+  .intro-section { padding-bottom: 28px; }
   .visi-row { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
   .visi-section { padding: 24px 0 0; }
+  /* Matches the 52px the intro leaves above the rule. */
+  .founder-section { padding-top: 52px; }
   .founder-grid { grid-template-columns: 1fr; gap: 40px; }
   .founder-sticky { position: static; }
-  .founder-photo { aspect-ratio: 1 / 1; max-height: 420px; }
+  .founder-figure { max-width: 260px; margin-inline: auto; }
   .founder-title { margin-bottom: 20px; }
 }

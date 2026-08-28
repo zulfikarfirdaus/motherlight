@@ -111,6 +111,6 @@
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
 }
 @media (max-width: 640px) {
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-top: 48px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding-top: 48px; padding-bottom: 28px; }
   .footer-tagline { max-width: 100%; }
 }

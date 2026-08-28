@@ -82,8 +82,22 @@ export default function TentangKami() {
 
       {/* ── Pendiri ───────────────────────────────────────────── */}
       <section className="section founder-section">
-        <div className="container founder-grid founder-grid-no-photo">
-          {/* Photo pending replacement */}
+        <div className="container founder-grid">
+          <aside className="founder-media">
+            <SectionReveal className="founder-sticky">
+              <figure className="founder-figure">
+                <img
+                  className="founder-photo"
+                  src="/images/tim/dr-bima.jpg"
+                  alt="dr. Bima Suryantara, Sp.OG., Subsp. Obginsos"
+                  width="900"
+                  height="1125"
+                  loading="lazy"
+                />
+              </figure>
+            </SectionReveal>
+          </aside>
+
           <SectionReveal className="founder-content" delay={100}>
             <span className="section-label">Pendiri Motherlight</span>
             <h2 className="heading-lg founder-title">
