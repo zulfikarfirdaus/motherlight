@@ -1,6 +1,6 @@
 # ✅ Supabase Migration Files Created!
 
-I've set up everything you need to migrate to Netlify + Supabase (100% free hosting).
+I've set up everything you need to migrate to Cloudflare + Supabase (100% free hosting).
 
 ---
 
@@ -26,7 +26,7 @@ I've set up everything you need to migrate to Netlify + Supabase (100% free host
 
 ### 4. **Configuration Files**
 - `.env.example` - Environment variables template
-- `netlify.toml` - Netlify deployment config
+- `wrangler.jsonc` - Cloudflare deployment config
 - `.gitignore` - Updated to protect `.env`
 
 ### 5. **Setup Tools**
@@ -74,14 +74,15 @@ cp .env.example .env
 npm run migrate:supabase
 ```
 
-### Step 3: Deploy to Netlify
+### Step 3: Deploy to Cloudflare
 
-1. Push to GitHub: `git push`
-2. Go to [app.netlify.com](https://app.netlify.com)
-3. Click "Add new site" → "Import from GitHub"
-4. Select your repository
-5. Add environment variables (from `.env`)
-6. Deploy!
+1. Make sure `.env` is filled in (the values are baked in at build time)
+2. Build: `npm run build`
+3. Deploy: `npx wrangler deploy`
+4. Push to GitHub: `git push`
+
+Deploy settings come from `wrangler.jsonc`. The push does not deploy on its
+own, the `wrangler deploy` is what ships it.
 
 ---
 
@@ -133,10 +134,9 @@ I can help update these files next!
 - ✅ 50,000 Monthly Active Users
 - ✅ Unlimited API Requests
 
-### Netlify (Free Forever)
-- ✅ 100 GB Bandwidth/month
-- ✅ 300 Build Minutes/month
-- ✅ Auto-deploys from GitHub
+### Cloudflare (Free tier)
+- ✅ Unlimited bandwidth
+- ✅ 100,000 requests/day
 - ✅ Free SSL/HTTPS
 - ✅ Global CDN
 
@@ -177,7 +177,7 @@ motherlight/
 ├── supabase-schema.sql          ← Run in Supabase SQL Editor
 ├── migrate-to-supabase.js       ← Migration script
 ├── setup-supabase.sh            ← Setup wizard
-├── netlify.toml                 ← Netlify config
+├── wrangler.jsonc               ← Cloudflare config
 ├── .env.example                 ← Template
 ├── .env                         ← YOUR CREDENTIALS (git-ignored)
 └── MIGRATION-GUIDE.md           ← Full instructions
@@ -194,14 +194,14 @@ motherlight/
 - ❌ No real-time capabilities
 - ❌ Manual scaling
 
-### After (Supabase + Netlify)
+### After (Supabase + Cloudflare)
 - ✅ **100% FREE** hosting
 - ✅ Automatic daily backups
 - ✅ Durable file storage (never lost)
 - ✅ Real-time subscriptions (future feature)
 - ✅ Auto-scales to millions of users
 - ✅ Global CDN for fast loading
-- ✅ Auto-deploy on git push
+- ✅ One-command deploy (`npx wrangler deploy`)
 
 ---
 
@@ -216,7 +216,7 @@ motherlight/
 1. [ ] Update frontend pages (I can help!)
 2. [ ] Test locally: `npm run dev:vite`
 3. [ ] Push to GitHub
-4. [ ] Deploy on Netlify
+4. [ ] Deploy: `npm run build && npx wrangler deploy`
 
 **Later (Optional):**
 1. [ ] Remove old `server/` directory
@@ -230,7 +230,7 @@ motherlight/
 I'm here! Just ask me to:
 - "Update Jadwal.jsx to use Supabase"
 - "Help me test the migration"
-- "Deploy to Netlify step by step"
+- "Deploy to Cloudflare step by step"
 - "Set up admin authentication"
 
 Let's get this deployed! 🚀

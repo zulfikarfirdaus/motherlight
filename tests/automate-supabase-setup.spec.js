@@ -134,7 +134,7 @@ test('Full Supabase Migration Automation', async ({ page }) => {
   console.log('🚀 Next steps:\n');
   console.log('   1. Test locally: npm run dev:vite');
   console.log('   2. Push to GitHub: git push');
-  console.log('   3. Deploy on Netlify\n');
+  console.log('   3. Deploy to Cloudflare: npm run build && npx wrangler deploy\n');
 });
 
 // Helper function

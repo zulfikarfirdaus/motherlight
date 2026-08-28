@@ -7,7 +7,7 @@ Everything is automated! Just run ONE command.
 ## 🚀 Quick Start
 
 ```bash
-./deploy-everything.sh
+npm run automate:full
 ```
 
 That's it! The script will:
@@ -17,7 +17,6 @@ That's it! The script will:
 4. ✅ Migrate all gallery albums & photos
 5. ✅ Upload all images to Supabase Storage
 6. ✅ Update frontend code to use Supabase
-7. ✅ Prepare for Netlify deployment
 
 ---
 
@@ -79,27 +78,18 @@ Visit http://localhost:5173 and verify:
 - ✅ Galeri page shows albums
 - ✅ Images load from Supabase
 
-### Deploy to Netlify
+### Deploy to Cloudflare
 
-**Option 1: Netlify UI**
-1. Go to https://app.netlify.com
-2. Click "Add new site" → "Import an existing project"
-3. Connect to GitHub
-4. Select `motherlight` repository
-5. Add environment variables:
-   ```
-   VITE_SUPABASE_URL=https://pvjudrlxwmjxvbzhkdks.supabase.co
-   VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2anVkcmx4d21qeHZiemhrZGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjY2OTAsImV4cCI6MjA5NDYwMjY5MH0.4HoDg0iVmN3_gi9ikhYPfVLwLRVui_OI_G4X5Lr4ia4
-   ```
-6. Click "Deploy"
-
-**Option 2: Netlify CLI** (faster)
 ```bash
-npm install -g netlify-cli
-netlify login
-netlify init
-netlify deploy --prod
+npm run build
+npx wrangler deploy
 ```
+
+Deploy settings live in `wrangler.jsonc`. There is no build-on-push, so a
+`git push` alone does not ship anything, you have to run the deploy.
+
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are baked into the bundle at
+build time, so they need to be in `.env` before `npm run build` runs.
 
 ---
 
@@ -133,12 +123,11 @@ npm run automate:full -- --debug
 ### Files Updated
 - ✅ `src/pages/Jadwal.jsx` - Now uses `getDoctors()` from Supabase
 - ✅ `src/pages/Galeri.jsx` - Now uses `getGallery()` from Supabase
-- ✅ `public/_redirects` - Created for Netlify routing
 
 ### Files Created
 - ✅ `src/lib/supabase.js` - Supabase client wrapper
 - ✅ `.env` - Environment variables (git-ignored)
-- ✅ `netlify.toml` - Netlify configuration
+- ✅ `wrangler.jsonc` - Cloudflare configuration
 
 ### Files You Can Delete (after verifying)
 - ❌ `server/` directory (old Express server)
@@ -154,10 +143,10 @@ npm run automate:full -- --debug
 - 5 GB Bandwidth/month ✅
 - Your current usage: ~50MB database, ~200MB storage
 
-### Netlify (Free Forever)
-- 100 GB Bandwidth/month ✅
-- 300 Build minutes/month ✅
-- Auto-deploys from GitHub ✅
+### Cloudflare (Free tier)
+- Unlimited bandwidth ✅
+- 100,000 requests/day ✅
+- Custom domains on `motherlight.co.id` ✅
 
 **You're well within limits!** 🎉
 
@@ -171,7 +160,7 @@ Before:
 - ❌ Local images (lost on server restart)
 
 After:
-- ✅ Netlify frontend (FREE, auto-deploys)
+- ✅ Cloudflare frontend (FREE, served from the edge)
 - ✅ Supabase database (FREE, auto-backups)
 - ✅ Supabase Storage (FREE, durable images)
 
@@ -184,6 +173,6 @@ The automation failed? Run manually:
 1. **SQL Schema**: Copy `supabase-schema.sql` → Paste in Supabase SQL Editor → Run
 2. **Migration**: `npm run migrate:supabase`
 3. **Test**: `npm run dev:vite`
-4. **Deploy**: Push to GitHub, connect to Netlify
+4. **Deploy**: `npm run build && npx wrangler deploy`
 
 **Still stuck?** Check the error messages - they're usually descriptive!

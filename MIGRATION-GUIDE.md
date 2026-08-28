@@ -1,6 +1,6 @@
 # 🚀 Motherlight → Supabase Migration Guide
 
-This guide will help you migrate from Express + JSON files to Supabase + Netlify (100% free hosting).
+This guide will help you migrate from Express + JSON files to Supabase + Cloudflare (100% free hosting).
 
 ---
 
@@ -10,7 +10,7 @@ This guide will help you migrate from Express + JSON files to Supabase + Netlify
 2. ✅ Git repository pushed to GitHub
 3. ✅ Accounts created:
    - [Supabase](https://supabase.com) (free tier)
-   - [Netlify](https://netlify.com) (free tier)
+   - [Cloudflare](https://cloudflare.com) (free tier)
 
 ---
 
@@ -130,37 +130,40 @@ Open [http://localhost:5173](http://localhost:5173) and verify:
 
 ---
 
-## Step 6: Deploy to Netlify
+## Step 6: Deploy to Cloudflare
 
-### 6.1 Connect GitHub to Netlify
+### 6.1 Authenticate
 
-1. Go to [https://app.netlify.com](https://app.netlify.com)
-2. Click **"Add new site"** → **"Import an existing project"**
-3. Choose **GitHub**
-4. Select your `motherlight` repository
-5. Netlify will auto-detect settings from `netlify.toml`
+```bash
+npx wrangler login
+```
 
 ### 6.2 Add Environment Variables
 
-In Netlify dashboard:
-1. Go to **Site settings** → **Environment variables**
-2. Add:
-   ```
-   VITE_SUPABASE_URL = https://your-project.supabase.co
-   VITE_SUPABASE_ANON_KEY = eyJhbGc...your-anon-key
-   ```
+These are baked into the bundle at build time, so they have to be in `.env`
+before you build, not set in a dashboard afterwards:
+
+```
+VITE_SUPABASE_URL = https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY = eyJhbGc...your-anon-key
+```
 
 ### 6.3 Deploy
 
-1. Click **"Deploy site"**
-2. Wait 2-3 minutes
-3. ✅ Your site is live! (e.g., `https://motherlight-xyz.netlify.app`)
+```bash
+npm run build
+npx wrangler deploy
+```
 
-### 6.4 Custom Domain (Optional)
+✅ Your site is live at `motherlight.co.id`.
 
-1. Go to **Domain settings**
-2. Click **"Add custom domain"**
-3. Follow instructions to configure DNS
+Deploy settings come from `wrangler.jsonc`. There is no build-on-push, so a
+`git push` alone does not ship anything.
+
+### 6.4 Custom Domain
+
+Already configured in `wrangler.jsonc` under `routes`, as
+`motherlight.co.id` and `www.motherlight.co.id`.
 
 ---
 
@@ -177,7 +180,7 @@ In Netlify dashboard:
 
 ### 7.2 Test Admin Login
 
-1. Go to `https://your-site.netlify.app/admin/login`
+1. Go to `https://motherlight.co.id/admin/login`
 2. Login with the credentials you just created
 3. ✅ You should be able to manage doctors and gallery
 
@@ -202,7 +205,7 @@ rm scripts/sync-gallery.js
 ## 🎉 Migration Complete!
 
 Your site is now running on:
-- ✅ **Frontend**: Netlify (free, auto-deploys on git push)
+- ✅ **Frontend**: Cloudflare (free, deployed with `wrangler deploy`)
 - ✅ **Database**: Supabase Postgres (free tier: 500MB)
 - ✅ **Storage**: Supabase Storage (free tier: 1GB)
 - ✅ **Auth**: Supabase Auth (free tier: 50,000 users)
@@ -215,10 +218,10 @@ Your site is now running on:
 - Bandwidth: 5 GB/month
 - 50,000 monthly active users
 
-**Netlify Free Tier:**
-- Bandwidth: 100 GB/month
-- Build minutes: 300/month
-- Auto-deploys from GitHub
+**Cloudflare Free Tier:**
+- Bandwidth: unlimited
+- Requests: 100,000/day
+- Custom domains included
 
 ---
 
@@ -229,7 +232,7 @@ Your site is now running on:
 1. Edit code locally
 2. Test: `npm run dev:vite`
 3. Commit & push to GitHub
-4. ✅ Netlify auto-deploys
+4. Deploy: `npm run build && npx wrangler deploy`
 
 ### Managing Content
 
@@ -251,7 +254,7 @@ Your site is now running on:
 
 ### "Admin login not working"
 - ✅ Make sure you created user in Supabase Auth
-- ✅ Check environment variables in Netlify
+- ✅ Check `.env` had the right values when you ran `npm run build`
 
 ---
 
@@ -268,5 +271,5 @@ npm run dev  # Uses old Express + JSON files
 ## 📞 Need Help?
 
 1. Check Supabase logs: **Logs** → **Postgres Logs**
-2. Check Netlify logs: **Deploys** → (click latest deploy) → **Deploy log**
+2. Check Cloudflare logs: `npx wrangler tail`
 3. Check browser console: F12 → Console tab

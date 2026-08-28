@@ -7,7 +7,6 @@
  * 1. Runs SQL schema in Supabase
  * 2. Migrates all data (doctors, gallery, images)
  * 3. Updates frontend code to use Supabase
- * 4. Prepares for Netlify deployment
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -199,23 +198,6 @@ async function updateFrontendFiles() {
 }
 
 // ============================================================
-// Step 5: Create Deployment Files
-// ============================================================
-
-async function createDeploymentFiles() {
-  log('📄', 'Step 5: Preparing deployment...');
-
-  // Create _redirects for Netlify
-  const redirectsPath = path.join(__dirname, 'public/_redirects');
-  if (!fs.existsSync(redirectsPath)) {
-    fs.writeFileSync(redirectsPath, '/*    /index.html   200\n');
-    log('  ✓', 'Created public/_redirects');
-  }
-
-  log('✅', 'Deployment files ready!');
-}
-
-// ============================================================
 // Main Automation
 // ============================================================
 
@@ -239,9 +221,6 @@ async function main() {
     // Step 4: Update frontend
     await updateFrontendFiles();
 
-    // Step 5: Prepare deployment
-    await createDeploymentFiles();
-
     console.log('\n');
     console.log('╔════════════════════════════════════════════════════════╗');
     console.log('║  ✅ AUTOMATION COMPLETE!                              ║');
@@ -252,10 +231,9 @@ async function main() {
     console.log('      npm run dev:vite\n');
     console.log('   2. Build for production:');
     console.log('      npm run build\n');
-    console.log('   3. Deploy to Netlify:');
-    console.log('      - Push to GitHub: git add . && git commit -m "Migrate to Supabase" && git push');
-    console.log('      - Connect repo at: https://app.netlify.com\n');
-    console.log('   4. Set Netlify environment variables:');
+    console.log('   3. Deploy to Cloudflare:');
+    console.log('      npx wrangler deploy\n');
+    console.log('   4. Make sure these are set in .env before building:');
     console.log(`      VITE_SUPABASE_URL=${SUPABASE_URL}`);
     console.log(`      VITE_SUPABASE_ANON_KEY=${process.env.VITE_SUPABASE_ANON_KEY}\n`);
 

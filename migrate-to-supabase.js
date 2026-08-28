@@ -276,7 +276,7 @@ async function main() {
     console.log('╚════════════════════════════════════════════════╝\n');
     console.log('Next steps:');
     console.log('1. Update frontend to use Supabase client');
-    console.log('2. Deploy to Netlify');
+    console.log('2. Deploy to Cloudflare: npm run build && npx wrangler deploy');
     console.log('3. Remove old Express server files\n');
 
   } catch (error) {
